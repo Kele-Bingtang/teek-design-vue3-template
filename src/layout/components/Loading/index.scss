@@ -1,28 +1,11 @@
-@use "@/styles/namespace.scss" as *;
+@use "@styles/mixins/bem" as *;
+@use "@styles/mixins/function" as *;
 
-$prefix-class: #{$admin-namespace}-layout-loading;
-
-.#{$prefix-class} {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+@include b(layout-loading) {
   width: 100%;
   height: 100%;
 
-  &__wrap {
-    @keyframes ant-rotate {
-      to {
-        transform: rotate(405deg);
-      }
-    }
-
-    @keyframes ant-spin-move {
-      to {
-        opacity: 1;
-      }
-    }
-
+  @include e(wrap) {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,7 +27,7 @@ $prefix-class: #{$admin-namespace}-layout-loading;
       display: block;
       width: 14px;
       height: 14px;
-      background-color: var(--#{$el-namespace}-color-primary);
+      background-color: cssVar(color-primary);
       border-radius: 100%;
       opacity: 0.3;
       transform: scale(0.75);
@@ -73,6 +56,18 @@ $prefix-class: #{$admin-namespace}-layout-loading;
       bottom: 0;
       left: 0;
       animation-delay: 1.2s;
+    }
+
+    @keyframes ant-rotate {
+      to {
+        transform: rotate(405deg);
+      }
+    }
+
+    @keyframes ant-spin-move {
+      to {
+        opacity: 1;
+      }
     }
   }
 }

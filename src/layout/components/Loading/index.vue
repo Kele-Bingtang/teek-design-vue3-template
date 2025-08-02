@@ -1,6 +1,14 @@
+<script setup lang="ts">
+import { useNamespace } from "@/composables";
+
+defineOptions({ name: "Loading" });
+
+const ns = useNamespace("layout-loading");
+</script>
+
 <template>
-  <div :class="prefixClass">
-    <div :class="`${prefixClass}__wrap`">
+  <div :class="ns.b()" class="flx-column-center">
+    <div :class="ns.e('wrap')">
       <span class="dot dot-spin">
         <i></i>
         <i></i>
@@ -10,13 +18,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts" name="Loading">
-import { useDesign } from "@/hooks";
-
-const { getPrefixClass } = useDesign();
-const prefixClass = getPrefixClass("layout-loading");
-</script>
 
 <style lang="scss" scoped>
 @use "./index";

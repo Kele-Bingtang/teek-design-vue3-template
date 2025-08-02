@@ -1,0 +1,18 @@
+@use "@styles/mixins/bem" as *;
+@use "@styles/mixins/function" as *;
+
+@include b(horizontal-layout) {
+  @include joins(layout-header) {
+    @include el-joins(menu-item, sub-menu) {
+      &:not(.is-child) {
+        .menu-item-tag:not(.point-tag) {
+          display: none;
+        }
+
+        .point-tag {
+          right: 2px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,119 @@
+@use "namespace" as *;
+@use "sass:meta";
+@use "sass:string";
+
+// BEM support Func
+@function selectorToStr($selector) {
+  /* 转为字符串 */
+  $selector: meta.inspect($selector);
+  $selector: string.slice($selector, 2, -2);
+
+  @return $selector;
+}
+
+/* 是否包含 modifier-separator（--） */
+@function containModifier($selector) {
+  $selector: selectorToStr($selector);
+
+  @if string.index($selector, $modifier-separator) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+/* 是否包含 state-prefix（.is,.has.no） */
+@function containStateFlag($selector) {
+  $selector: selectorToStr($selector);
+
+  @if string.index($selector, "." + $is-state-prefix) or
+    string.index($selector, "." + $has-state-prefix) or
+    string.index($selector, "." + $no-state-prefix)
+  {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+/* 是否包含伪类（:） */
+@function containPseudoClasses($selector) {
+  $selector: selectorToStr($selector);
+
+  @if string.index($selector, ":") {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+/* 是否包含特殊嵌套规则 */
+@function hitAllSpecialNestRule($selector) {
+  @return containModifier($selector) or containStateFlag($selector) or containPseudoClasses($selector);
+}
+
+/* 合并变量名：joinVar(('button', 'text-color')) => '--tk-button-text-color' */
+@function joinVar($list) {
+  $name: "--" + $admin-namespace;
+
+  @each $item in $list {
+    @if $item != "" {
+      $name: $name + "-" + $item;
+    }
+  }
+
+  @return $name;
+}
+
+/* cssVarName('button', 'text-color') => '--tk-button-text-color' */
+@function cssVarName($args...) {
+  @return joinVar($args);
+}
+
+/* cssVar('button', 'text-color') => var(--tk-button-text-color) */
+@function cssVar($args...) {
+  @return var(#{joinVar($args)});
+}
+
+/* cssVarWithDefault(('button', 'text-color'), red) => var(--tk-button-text-color, red) */
+@function cssVarWithDefault($args, $default) {
+  @return var(#{joinVar($args)}, #{$default});
+}
+
+/* createBem('block', 'element', 'modifier') => 'tk-block__element--modifier' */
+@function createBem($block, $element: "", $modifier: "") {
+  $name: $admin-namespace + $common-separator + $block;
+
+  @if $element != "" {
+    $name: $name + $element-separator + $element;
+  }
+
+  @if $modifier != "" {
+    $name: $name + $modifier-separator + $modifier;
+  }
+
+  @return $name;
+}
+
+/* 合并变量名：joinVar(('button', 'text-color')) => '--el-button-text-color' */
+@function joinVarEl($list) {
+  $name: "--" + $el-namespace;
+
+  @each $item in $list {
+    @if $item != "" {
+      $name: $name + "-" + $item;
+    }
+  }
+
+  @return $name;
+}
+
+/* cssVarName('button', 'text-color') => '--el-button-text-color' */
+@function cssVarElName($args...) {
+  @return joinVarEl($args);
+}
+
+/* cssVar('button', 'text-color') => var(--el-button-text-color) */
+@function cssVarEl($args...) {
+  @return var(#{joinVarEl($args)});
+}

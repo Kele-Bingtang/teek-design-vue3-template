@@ -1,0 +1,164 @@
+/* flex 原子类 */
+.flx {
+  display: flex;
+}
+
+.flx-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flx-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flx-column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.flx-column-justify-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flx-column-align-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flx-align-center {
+  display: flex;
+  align-items: center;
+}
+
+.flx-justify-center {
+  display: flex;
+  justify-content: center;
+}
+
+.flx-justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flx-align-center-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flx-justify-around {
+  display: flex;
+  justify-content: space-around;
+}
+
+.flx-align-center-around {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.flx-1 {
+  flex: 1;
+}
+
+.flx-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gap-10 {
+  gap: 10px;
+}
+
+.gap-15 {
+  gap: 15px;
+}
+
+.gap-20 {
+  gap: 20px;
+}
+
+/* 文字单行省略号 */
+.sle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 文字多行省略号 */
+.mle {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* 文字居中 */
+.text-center {
+  text-align: center;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* 清除浮动 */
+.clearfix {
+  &::after {
+    clear: both;
+    display: table;
+    content: "";
+  }
+}
+
+/* 边距 */
+@for $i from 1 through 6 {
+  .m-#{$i * 5} {
+    margin: ($i * 5) + px;
+  }
+  .mt-#{$i * 5} {
+    margin-top: ($i * 5) + px;
+  }
+  .mb-#{$i * 5} {
+    margin-bottom: ($i * 5) + px;
+  }
+  .ml-#{$i * 5} {
+    margin-left: ($i * 5) + px;
+  }
+  .mr-#{$i * 5} {
+    margin-right: ($i * 5) + px;
+  }
+
+  .p-#{$i * 5} {
+    padding: ($i * 5) + px;
+  }
+  .pt-#{$i * 5} {
+    padding-top: ($i * 5) + px;
+  }
+  .pb-#{$i * 5} {
+    padding-bottom: ($i * 5) + px;
+  }
+  .pl-#{$i * 5} {
+    padding-left: ($i * 5) + px;
+  }
+  .pr-#{$i * 5} {
+    padding-right: ($i * 5) + px;
+  }
+}
+
+/* font-size */
+@for $i from 14 through 24 {
+  .fz-#{$i} {
+    font-size: ($i) + px;
+  }
+}

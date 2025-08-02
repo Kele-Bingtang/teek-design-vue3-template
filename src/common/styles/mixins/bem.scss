@@ -1,0 +1,150 @@
+@use "namespace" as *;
+@use "function" as *;
+@use "sass:string";
+
+$bem-b: null;
+$bem-e: null;
+
+/* Block 块 */
+@mixin b($block) {
+  $bem-b: $admin-namespace + $common-separator + $block !global;
+
+  .#{$bem-b} {
+    @content;
+  }
+}
+
+/* Element 元素 */
+@mixin e($element, $nest: false) {
+  $bem-e: $element !global;
+  $selector: &;
+  $current-selector: "";
+
+  @each $unit in $element {
+    $current-selector: #{$current-selector + "." + $bem-b + $element-separator + $unit + ","};
+  }
+
+  @if hitAllSpecialNestRule($selector) {
+    @if $nest {
+      @at-root {
+        #{$selector} {
+          #{$current-selector} {
+            @content;
+          }
+        }
+      }
+    } @else {
+      #{$selector} {
+        #{$current-selector} {
+          @content;
+        }
+      }
+    }
+  } @else {
+    @if $nest {
+      @at-root {
+        #{$current-selector} {
+          @content;
+        }
+      }
+    } @else {
+      #{$current-selector} {
+        @content;
+      }
+    }
+  }
+}
+
+/* Modifier 修饰符 */
+@mixin m($modifier) {
+  $selector: &;
+  $current-selector: "";
+
+  @each $unit in $modifier {
+    $current-selector: #{$current-selector + $selector + $modifier-separator + $unit + ","};
+  }
+
+  @at-root {
+    #{$current-selector} {
+      @content;
+    }
+  }
+}
+
+@mixin is($state, $match: true) {
+  $selector: $is-state-prefix + $state;
+
+  @at-root {
+    @if $match {
+      &.#{$selector} {
+        @content;
+      }
+    } @else {
+      &:not(.#{$selector}) {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin has($state, $match: true) {
+  $selector: $has-state-prefix + $state;
+
+  @at-root {
+    @if $match {
+      &.#{$selector} {
+        @content;
+      }
+    } @else {
+      &:not(.#{$selector}) {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin no($state, $match: true) {
+  $selector: $no-state-prefix + $state;
+
+  @at-root {
+    @if $match {
+      &.#{$selector} {
+        @content;
+      }
+    } @else {
+      &:not(.#{$selector}) {
+        @content;
+      }
+    }
+  }
+}
+
+/* 多个元素 */
+@mixin joins($element...) {
+  $b: $admin-namespace + $common-separator;
+  $selector: "";
+
+  /* 拼接逗号 */
+  @each $unit in $element {
+    $selector: #{$selector + "." + $b + $unit + ","};
+  }
+
+  #{string.slice($selector, 1, -2)} {
+    @content;
+  }
+}
+
+/* 多个 element plus 元素 */
+@mixin el-joins($element...) {
+  $b: $el-namespace + $common-separator;
+  $selector: "";
+
+  /* 拼接逗号 */
+  @each $unit in $element {
+    $selector: #{$selector + "." + $b + $unit + ","};
+  }
+
+  #{string.slice($selector, 1, -2)} {
+    @content;
+  }
+}

@@ -1,0 +1,54 @@
+@use "@styles/mixins/bem" as *;
+@use "@styles/mixins/namespace" as *;
+@use "@styles/mixins/function" as *;
+@use "@styles/common/var" as *;
+
+@include b(login-form) {
+  @include el-joins(form-item) {
+    margin-bottom: 20px;
+
+    @include el-joins(button) {
+      margin-left: 0;
+    }
+
+    @include e(item) {
+      flex-wrap: wrap;
+      gap: 20px;
+      width: 100%;
+    }
+
+    @include e(third-item) {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      width: 100%;
+      cursor: pointer;
+
+      .tk-icon:hover {
+        color: cssVarEl(color-primary);
+      }
+    }
+
+    :deep(.#{$el-namespace}-input-group__append) {
+      padding: 0;
+    }
+  }
+
+  @include e(btn) {
+    gap: 20px;
+    width: 100%;
+
+    @media (max-width: $device-phone) {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    @include el-joins(button) {
+      width: 185px;
+
+      @media (max-width: $device-phone) {
+        width: 100%;
+      }
+    }
+  }
+}

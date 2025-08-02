@@ -1,0 +1,65 @@
+@use "@styles/mixins/bem" as *;
+@use "@styles/mixins/function" as *;
+
+@include b(iframe-layout) {
+  @include e(menu-footer) {
+    width: 100%;
+    padding: 16px 0 8px;
+    border-top: 1px solid cssVar(border-color);
+
+    .name {
+      font-size: 14px;
+    }
+
+    > * {
+      padding: 10px 24px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: cssVar(layout-aside-bg-hover-color);
+      }
+    }
+
+    > *:not(.customize) {
+      height: 40px;
+    }
+
+    // 菜单折叠按钮
+    @include joins(collapse-trigger) {
+      gap: 20px;
+      justify-content: flex-start;
+      width: 100%;
+
+      &:hover {
+        background-color: cssVar(layout-aside-bg-hover-color);
+      }
+    }
+
+    // 菜单折叠时
+    @include is(collapse) {
+      > * {
+        padding: 0;
+      }
+
+      .name {
+        display: none;
+      }
+
+      // 头像
+      @include joins(user-avatar) {
+        &__avatar-wrapper {
+          justify-content: center;
+
+          > span {
+            display: none;
+          }
+        }
+      }
+
+      // 菜单折叠按钮
+      @include joins(collapse-trigger) {
+        justify-content: center;
+      }
+    }
+  }
+}
