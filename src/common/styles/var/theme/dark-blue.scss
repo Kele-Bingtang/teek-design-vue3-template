@@ -1,7 +1,7 @@
 @use "../../mixins/namespace" as *;
 @use "../../mixins/color-variants" as *;
 
-// 偏蓝深色模式主题变量
+// 深蓝深色模式主题变量
 :root.dark-blue {
   // === 核心背景色 ===
   --#{$teek-namespace}-bg-color: #1a1d26;
