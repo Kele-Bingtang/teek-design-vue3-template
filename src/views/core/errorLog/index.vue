@@ -1,6 +1,6 @@
 <script setup lang="ts" name="ErrorLog">
 import { computed, reactive, ref } from "vue";
-import { ProDialog } from "@/components";
+import { ElDialog } from "element-plus";
 import { useNamespace } from "@/composables";
 import { useErrorLogStore, type ErrorLog } from "@/pinia";
 
@@ -148,7 +148,7 @@ const addErrorLog = () => {
       </el-table-column>
     </el-table>
 
-    <ProDialog v-model="dialogErrorStackVisible" title="错误信息" width="70%" top="10vh">
+    <ElDialog v-model="dialogErrorStackVisible" title="错误信息" width="70%" top="10vh">
       <el-table :data="[clickCurrentRow]" border>
         <el-table-column label="name" width="160px">
           <template #default="{ row }">
@@ -171,6 +171,6 @@ const addErrorLog = () => {
           </template>
         </el-table-column>
       </el-table>
-    </ProDialog>
+    </ElDialog>
   </div>
 </template>

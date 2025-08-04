@@ -1,4 +1,5 @@
 <template>
+  <Loading />
   <el-config-provider :namespace="ns.elNamespace" :locale="i18nLocale" :button="config" :size="layout.elementPlusSize">
     <router-view v-slot="{ Component }">
       <component :is="Component" />
@@ -18,6 +19,7 @@ import { isFunction } from "@/common/utils";
 import { useNamespace, useWatchCssVar, useTheme } from "@/composables";
 import { useSettingStore, useLayoutStore } from "@/pinia";
 import { useIFrame } from "@/layout/components/iframe/use-iframe";
+import Loading from "@/layout/components/loading/index.vue";
 
 const ns = useNamespace();
 
@@ -47,5 +49,5 @@ const i18nLocale = computed(() => {
   return document.documentElement.lang === "zh-CN" ? zhCn : en;
 });
 
-if (isFunction(log.success)) log.success(__APP_INFO__.pkg.version, "欢迎使用 Teek Design Pro 系统");
+if (isFunction(log.success)) log.success(__APP_INFO__.pkg.version, "欢迎使用 Teek Design Vue3 系统");
 </script>

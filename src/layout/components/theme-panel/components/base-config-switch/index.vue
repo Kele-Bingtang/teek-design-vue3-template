@@ -342,6 +342,11 @@ const handleSelectLanguage = (lang: LanguageEnum) => {
       <el-switch v-model="transition.progress" />
     </div>
 
+    <div :class="ns.e('item')">
+      <span>{{ $t("_setting.transition.loading") }}</span>
+      <el-switch v-model="transition.loading" />
+    </div>
+
     <h3>{{ $t("_setting.widget.label") }}</h3>
 
     <div :class="ns.e('item')">
