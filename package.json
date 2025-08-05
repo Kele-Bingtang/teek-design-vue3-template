@@ -113,10 +113,5 @@
     "commitizen": {
       "path": "node_modules/cz-git"
     }
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "v-code-diff"
-    ]
   }
 }
