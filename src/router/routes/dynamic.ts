@@ -34,6 +34,8 @@
  * @param meta.tagProps ==> 菜单标签的属性，即 ElTag 组件的 props
  * @param meta.pointTag ==> 是否显示点标记
  * @param meta.pointTagProps ==> 点标记的属性，即 PointTag 组件的 props
+ * @param meta.menuVisibleWithForbidden ==> 菜单可以看到，但是访问会被重定向到 403
+ * @param meta.query ==> 查询参数，Teek 不做任何处理，自行取出处理
  */
 
 import { Compass } from "@element-plus/icons-vue";
