@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/Kele-Bingtang/teek-design-vue3-template/compare/v1.1.1...v2.0.0) (2025-08-05)
+
+### Features
+
+- **layout:** 添加页面加载动画功能 ([79daf41](https://github.com/Kele-Bingtang/teek-design-vue3-template/commit/79daf41391604cc22206d2c51d06a805f77291ad))
+- **menu:** 新增菜单风格设置并调整菜单主题 ([b25d54f](https://github.com/Kele-Bingtang/teek-design-vue3-template/commit/b25d54f7a2b48830492264f2c607997a0fefe06f))
+- **router:** 增加菜单可见但无权限时的处理逻辑 ([415053e](https://github.com/Kele-Bingtang/teek-design-vue3-template/commit/415053e032a667ef1a43952da3a39fed5372ae31))
+
+### Bug Fixes
+
+- 🐞 删除不需要的 2 个依赖 ([c3d732d](https://github.com/Kele-Bingtang/teek-design-vue3-template/commit/c3d732d64c71d518bee0e4355fffcafed9021ab2))
+- 🐞 修复依赖缺失问题 ([7bd9251](https://github.com/Kele-Bingtang/teek-design-vue3-template/commit/7bd92510f3150d63c4e94713a7254e66e0585b55))
+- 删除不需要的静态资源，修复 loading 快速消失问题 ([46cc33f](https://github.com/Kele-Bingtang/teek-design-vue3-template/commit/46cc33fdac38bad8a9642ffce7cb37ae30377ee4))
+
+### Performance Improvements
+
+- **theme:** 移除生成浅色系颜色的代码 ([8124c66](https://github.com/Kele-Bingtang/teek-design-vue3-template/commit/8124c6605f1050b2522b72efd31b7f6a817424d5))
+
+### Code Refactoring
+
+- **styles:** 将 admin-namespace 重命名为 teek-namespace ([401f515](https://github.com/Kele-Bingtang/teek-design-vue3-template/commit/401f515405f18f5451b40cebf8bd4353b044c599))
+- **theme:** 优化暗黑主题命名和描述 ([f8032d9](https://github.com/Kele-Bingtang/teek-design-vue3-template/commit/f8032d968dcb27a586fc94f9472b90c153840398))
+- **theme:** 重构主题配置和样式 ([834d93d](https://github.com/Kele-Bingtang/teek-design-vue3-template/commit/834d93d4e55a527be9922b58fa390d9035b50af6))
+
+### Build System
+
+- 移除 pnpm 配置项 ([8a953ba](https://github.com/Kele-Bingtang/teek-design-vue3-template/commit/8a953baad18545b5fcd3f625cc282bc6ee7e932b))
+
+### Styling
+
+- **color:** 优化颜色处理函数并统一信息色值 ([8b6fdd9](https://github.com/Kele-Bingtang/teek-design-vue3-template/commit/8b6fdd98ab19e5ec2288891b878c176f018ec8d8))
+- **element-plus:** 调整按钮和列表项的背景颜色 ([35c58d7](https://github.com/Kele-Bingtang/teek-design-vue3-template/commit/35c58d7d309caa0067ddf616ae219977573186bb))
+
+### Others
+
+- 更新网站图标和日志 ([f0aeb8e](https://github.com/Kele-Bingtang/teek-design-vue3-template/commit/f0aeb8ed92d4a81de27c94d3a025f312acbee81f))
+
 ### [1.1.1](https://github.com/Kele-Bingtang/https://github.com/Kele-Bingtang/teek-design-vue3-template/compare/v1.1.0...v1.1.1) (2024-12-26)
 
 ### Features
