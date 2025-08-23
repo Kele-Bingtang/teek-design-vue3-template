@@ -351,16 +351,16 @@ onMounted(() => {
       <template #footer>
         <div class="dialog-footer">
           <div>
+            <Icon><Back /></Icon>
+            <span>{{ $t("_search.selectKeydown") }}</span>
+          </div>
+          <div>
             <Icon><ArrowUp /></Icon>
             <Icon><ArrowDown /></Icon>
             <span>{{ $t("_search.switchKeydown") }}</span>
           </div>
           <div>
-            <Icon><Back /></Icon>
-            <span>{{ $t("_search.selectKeydown") }}</span>
-          </div>
-          <div>
-            <i>esc</i>
+            <i>ESC</i>
             <span>{{ $t("_search.closeKeyDown") }}</span>
           </div>
         </div>
