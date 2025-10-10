@@ -1,0 +1,88 @@
+@use "@teek/styles/mixins/bem" as *;
+@use "@teek/styles/mixins/function" as *;
+
+@include b(columns-layout) {
+  /* 折叠按钮添加左间距 */
+  @include el-joins(header) {
+    padding-left: 10px !important;
+  }
+
+  /* 没有二级菜单样式 */
+  @include el-joins(aside) {
+    &.not-aside {
+      width: 0 !important;
+      border: 0;
+    }
+  }
+
+  /* 自定义菜单样式 */
+  @include e(aside) {
+    width: cssVar(layout-columns-aside-width);
+    height: 100%;
+    background-color: cssVar(layout-aside-bg-color);
+    border-right: cssVar(layout-aside-line);
+
+    @include e(logo) {
+      width: 100% !important;
+
+      img {
+        width: 45%;
+        margin: 0 auto;
+      }
+    }
+
+    @include e(aside__list) {
+      padding: 0;
+      margin: 0;
+    }
+
+    @include e(aside__list-item) {
+      flex-direction: column;
+      height: cssVar(layout-columns-aside-item-height);
+      cursor: pointer;
+      transition: all cssVar(transition-duration) ease;
+
+      &:hover {
+        background-color: cssVar(layout-aside-bg-hover-color);
+      }
+
+      :where(.#{$el-namespace}-icon, .svg-icon) {
+        font-size: 20px;
+        color: cssVar(layout-aside-icon-color);
+      }
+
+      .title {
+        padding: 5px;
+        margin-top: 6px;
+        font-size: 12px;
+        color: cssVar(layout-aside-text-color);
+      }
+
+      @include is(active) {
+        font-weight: 700;
+        background-color: cssVar(layout-aside-bg-active-color);
+
+        .title {
+          color: cssVarEl(menu-active-color);
+        }
+        :where(.#{$el-namespace}-icon, .svg-icon) {
+          color: cssVarEl(menu-active-color);
+        }
+      }
+
+      @include no(title) {
+        width: 60px;
+      }
+    }
+
+    @include e(collapse) {
+      padding: 16px 0;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        background-color: cssVar(layout-aside-bg-hover-color);
+      }
+    }
+  }
+}

@@ -1,8 +1,8 @@
 {
-  "name": "@template/styles",
+  "name": "@teek/styles",
   "version": "0.0.1",
   "description": "all style are settled here",
   "dependencies": {
-    "element-plus": "^2.9.1"
+    "element-plus": "catalog:"
   }
 }

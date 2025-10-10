@@ -1,9 +1,0 @@
-{
-  "name": "@template/hooks",
-  "version": "0.0.1",
-  "description": "all hooks are settled here",
-  "dependencies": {
-    "@vueuse/core": "^12.2.0",
-    "vue": "^3.5.13"
-  }
-}

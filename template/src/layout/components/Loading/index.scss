@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 @use "@template/styles/namespace.scss" as *;
 
 $prefix-class: #{$admin-namespace}-layout-loading;
@@ -27,13 +28,41 @@ $prefix-class: #{$admin-namespace}-layout-loading;
     align-items: center;
     justify-content: center;
     padding: 98px;
+=======
+@use "@teek/styles/mixins/bem" as *;
+@use "@teek/styles/mixins/function" as *;
+
+@include b(layout-loading) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background-color: cssVar(layout-page-bg-color);
+
+  @include is(route) {
+    position: absolute;
+  }
+
+  @include e(wrap) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 46px;
+>>>>>>> Stashed changes
 
     .dot {
       position: relative;
       box-sizing: border-box;
       display: inline-block;
+<<<<<<< Updated upstream
       width: 32px;
       height: 32px;
+=======
+      width: 64px;
+      height: 64px;
+>>>>>>> Stashed changes
       font-size: 32px;
       transform: rotate(45deg);
       animation: ant-rotate 1.2s infinite linear;
@@ -42,9 +71,15 @@ $prefix-class: #{$admin-namespace}-layout-loading;
     .dot i {
       position: absolute;
       display: block;
+<<<<<<< Updated upstream
       width: 14px;
       height: 14px;
       background-color: var(--#{$el-namespace}-color-primary);
+=======
+      width: 28px;
+      height: 28px;
+      background-color: cssVar(color-primary);
+>>>>>>> Stashed changes
       border-radius: 100%;
       opacity: 0.3;
       transform: scale(0.75);
@@ -74,5 +109,42 @@ $prefix-class: #{$admin-namespace}-layout-loading;
       left: 0;
       animation-delay: 1.2s;
     }
+<<<<<<< Updated upstream
   }
 }
+=======
+
+    @keyframes ant-rotate {
+      to {
+        transform: rotate(405deg);
+      }
+    }
+
+    @keyframes ant-spin-move {
+      to {
+        opacity: 1;
+      }
+    }
+  }
+
+  @include e(text) {
+    font-size: 26px;
+    font-weight: 600;
+    color: cssVarEl(text-color-regular);
+  }
+}
+
+// 过渡动画样式
+.loading-enter-active {
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.loading-leave-active {
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.loading-enter-from,
+.loading-leave-to {
+  opacity: 0;
+}
+>>>>>>> Stashed changes

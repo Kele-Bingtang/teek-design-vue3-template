@@ -1,0 +1,49 @@
+@use "@teek/styles/mixins/bem" as *;
+@use "@teek/styles/mixins/namespace" as *;
+@use "@teek/styles/mixins/function" as *;
+@use "@teek/styles/common/var" as *;
+
+@include b(error-page) {
+  gap: 120px;
+  width: 100%;
+  height: 100%;
+
+  @include e(detail) {
+    display: flex;
+    flex-direction: column;
+
+    h2,
+    h4 {
+      padding: 0;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 60px;
+      line-height: 1;
+      color: cssVar(text-gray-700);
+    }
+
+    h4 {
+      margin: 10px 0 20px;
+      font-size: 19px;
+      font-weight: normal;
+      color: cssVar(text-gray-500);
+    }
+
+    // #{$el-namespace} 默认为 el，如果组件迁移到其他项目，且项目架构与此项目不同，则请修改 #{$el-namespace} 为 el
+    @include el-joins(button) {
+      width: 100px;
+    }
+  }
+
+  @media (max-width: $device-ipad) {
+    flex-direction: column;
+    gap: 60px;
+    margin: 0 !important;
+
+    @include e(detail) {
+      align-items: center;
+    }
+  }
+}

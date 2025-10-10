@@ -3,7 +3,7 @@ import copy from "./copy";
 import draggable from "./draggable";
 import debounce from "./debounce";
 import throttle from "./throttle";
-import longPress from "./longPress";
+import longPress from "./long-press";
 import waves from "./waves";
 
 const directivesList: any = {

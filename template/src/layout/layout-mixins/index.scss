@@ -1,0 +1,33 @@
+@use "@teek/styles/mixins/bem" as *;
+@use "@teek/styles/mixins/function" as *;
+
+@include b(mixins-layout) {
+  .has-trigger {
+    visibility: hidden;
+  }
+
+  @include joins(layout-logo) {
+    margin-right: 10px;
+  }
+
+  /* 内容区减去 header 高度，否则无法滚动 */
+  @include e(content) {
+    height: calc(100% - cssVar(layout-header-height));
+  }
+
+  @include joins(layout-header) {
+    @include el-joins(menu--horizontal) {
+      @include el-joins(menu-item, sub-menu) {
+        &:not(.is-child) {
+          .menu-item-tag:not(.point-tag) {
+            display: none;
+          }
+
+          .point-tag {
+            right: 2px;
+          }
+        }
+      }
+    }
+  }
+}

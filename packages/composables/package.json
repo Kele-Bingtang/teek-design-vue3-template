@@ -1,0 +1,9 @@
+{
+  "name": "@teek/composables",
+  "version": "0.0.1",
+  "description": "all composables are settled here",
+  "dependencies": {
+    "@vueuse/core": "catalog:",
+    "vue": "catalog:"
+  }
+}

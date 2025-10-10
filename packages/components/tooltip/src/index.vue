@@ -4,135 +4,168 @@
       <Tooltip><span>...</span></Tooltip>
     </div>
  -->
-<template>
-  <template v-if="showTip">
-    <el-tooltip placement="top" v-bind="$attrs">
-      <template #content>{{ content.join("") }}</template>
-      <div ref="slotRef" :class="className">
-        <slot></slot>
-      </div>
-    </el-tooltip>
-  </template>
-  <template v-else>
-    <div ref="slotRef" :class="className">
-      <slot></slot>
-    </div>
-  </template>
-</template>
-
 <script setup lang="ts">
-import { isArray } from "@template/utils";
-import { useSlots, ref, computed, onMounted, onUpdated, onBeforeMount, unref } from "vue";
+import type { CSSProperties } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount, watch, useTemplateRef, useAttrs } from "vue";
+import { storeToRefs } from "pinia";
 import { ElTooltip } from "element-plus";
+import { useResizeObserver } from "@vueuse/core";
+import { useSettingStore } from "@/pinia";
+import { serviceConfig } from "@/common/config";
+import { isFunction } from "@teek/utils";
+import type { TooltipProps } from "./types";
 
 defineOptions({ name: "Tooltip" });
-
-interface TooltipProps {
-  line?: number; // 多少行文字溢出开始省略并气泡提示
-  realTime?: boolean; // 是否实时的判断文字是否溢出（鼠标悬停触发一次）
-  try?: number; // 组件初始化后，尝试多少次判断文字是否溢出（鼠标悬停触发一次），相比较 realTime，这是有次数的限制
-}
 
 const props = withDefaults(defineProps<TooltipProps>(), {
   line: 1,
   realTime: false,
-  try: 0,
+  maxTry: 3,
 });
 
-let tryNumber = -1;
-const slots = useSlots() as any;
-let slotDom = slots.default();
-const slotRef = ref<HTMLElement | null>(null);
-const showTip = ref<boolean>(false);
-const content = ref<any>([]);
-const isFirstMounted = ref(false);
-const line = computed(() => props.line);
+const containerInstance = useTemplateRef<HTMLElement>("containerInstance"); // 容器引用
+const showTip = ref(false); // 是否显示tooltip
+const contentText = ref(""); // 文本内容
+const tryCount = ref(0); // 当前尝试次数
 
-const className = computed(() => {
-  if (props.line === 1) return "sle";
-  else return "line-clamp";
+const attrs = useAttrs();
+
+const { isDark } = storeToRefs(useSettingStore());
+
+const effect = computed(() => {
+  const effect = serviceConfig.layout.tooltipEffect;
+  if (isFunction(effect)) return effect(isDark.value);
+  return effect;
 });
 
-const childrenIsArray = (arr: any, content: Array<string>) => {
-  arr.forEach((v: any) => {
-    if (isArray(v.children)) childrenIsArray(v.children, content);
-    else content.push(v.children);
-  });
+// 容器 class
+const containerClass = computed(() => {
+  return props.line === 1 ? "single-line" : "multi-line";
+});
+
+const style = computed(() => {
+  const style = attrs.style as CSSProperties;
+  return props.line > 1 ? { "-webkit-line-clamp": props.line, ...style } : style;
+});
+
+/**
+ * 获取元素的文本内容
+ */
+const getTextContent = (element: HTMLElement | null): string => {
+  if (!element) return "";
+  return element.textContent || element.innerText || "";
 };
 
-const slotDomIsSingleElArray = (slotDom: any) => {
-  if (isArray(slotDom.children)) childrenIsArray(slotDom.children, unref(content));
-  else content.value = [slotDom.children];
-};
+/**
+ * 检测是否溢出
+ */
+const checkOverflow = () => {
+  if (!containerInstance.value) return;
 
-const getContent = () => {
-  if (slotDom.length > 1) {
-    slotDom.forEach((v: any) => {
-      slotDomIsSingleElArray(v);
-    });
-  } else slotDomIsSingleElArray(slotDom[0]);
-};
+  const container = containerInstance.value;
+  contentText.value = getTextContent(container);
 
-const compareWidth = () => {
-  // 如果已经溢出，则不需要处理
-  if (unref(showTip)) return;
-  if (!props.realTime) {
-    if (tryNumber > props.try) return;
-    tryNumber = tryNumber + 1;
-  }
-  content.value = [];
-
-  if (unref(line) === 1) {
-    const parentW = unref(slotRef)?.offsetWidth ?? 0;
-    if (parentW === 0) return;
-    const childW = (unref(slotRef)?.firstElementChild as any).offsetWidth ?? 0;
-    childW > parentW ? (showTip.value = true) : (showTip.value = false);
-    if (unref(showTip)) getContent();
+  if (props.line === 1) {
+    // 单行检测：比较内容宽度与容器宽度
+    showTip.value = container.scrollWidth > container.offsetWidth;
   } else {
-    getContent();
-    // childW 为文本在页面中所占的宽度，创建 span 标签，加入到页面，获取不换行时的 span 标签 宽度，最后在移除 span 标签
-    const tempTag = document.createElement("span");
-    tempTag.innerText = unref(content).join("") ?? "";
-    tempTag.className = "tooltip-slot";
-    tempTag.style.whiteSpace = "nowrap";
-    slotRef.value?.appendChild(tempTag);
-    const tooTipSlot = slotRef.value?.querySelector(".tooltip-slot");
-    const childW = (tooTipSlot && (tooTipSlot as HTMLSpanElement).offsetWidth) || 0;
-    tooTipSlot && tooTipSlot.remove();
-    const parentW = unref(slotRef)?.offsetWidth ?? 0;
-    if (parentW === 0) return;
-    // 当文本宽度大于容器宽度两倍时，代表文本显示超过两行
-    childW > parentW ? (showTip.value = true) : (showTip.value = false);
+    /// 多行检测：精确比较内容高度与容器高度
+    const computedStyle = getComputedStyle(container);
+    const lineHeightStr = computedStyle.lineHeight;
+    let lineHeight: number;
+
+    // 处理 line-height 为 normal 的情况（使用默认 1.2 倍）
+    if (lineHeightStr === "normal") {
+      const fontSize = parseFloat(computedStyle.fontSize);
+      lineHeight = fontSize * 1.2;
+    } else lineHeight = parseFloat(lineHeightStr);
+
+    // 计算最大允许高度（考虑整数像素边界问题）
+    const maxHeight = Math.ceil(lineHeight * props.line);
+    const scrollHeight = Math.ceil(container.scrollHeight);
+
+    // 精确判断：内容高度必须严格超过最大允许高度（临界点处理）
+    showTip.value = scrollHeight > maxHeight + 1;
   }
+
+  // 更新尝试次数
+  if (!props.realTime && props.maxTry > 0 && !showTip.value) tryCount.value++;
 };
+
+/**
+ * 处理鼠标悬停事件
+ */
+const handleMouseOver = () => {
+  if (!props.realTime && props.maxTry > 0 && tryCount.value < props.maxTry) checkOverflow();
+};
+
+/**
+ * 当realTime或maxTry变化时重置尝试次数
+ */
+watch(
+  () => [props.realTime, props.maxTry],
+  () => {
+    tryCount.value = 0;
+  }
+);
+
+/**
+ * 使用 ResizeObserver 监听尺寸变化
+ */
+useResizeObserver(containerInstance, () => {
+  if (props.realTime) checkOverflow();
+});
 
 onMounted(() => {
-  isFirstMounted.value = true;
-  compareWidth();
-  if (props.try > 0) unref(slotRef)?.addEventListener("mouseover", compareWidth);
-  else unref(slotRef)?.removeEventListener("mouseout", compareWidth);
-});
+  // 初始检测
+  checkOverflow();
 
-onUpdated(() => {
-  if (unref(isFirstMounted)) isFirstMounted.value = false;
-  else {
-    slotDom = slots.default();
-    tryNumber = 0;
-    compareWidth();
+  // 非实时模式下添加鼠标事件
+  if (!props.realTime && props.maxTry > 0) {
+    containerInstance.value?.addEventListener("mouseover", handleMouseOver);
   }
 });
 
-onBeforeMount(() => {
-  unref(slotRef)?.removeEventListener("mouseout", compareWidth);
+onBeforeUnmount(() => {
+  // 清除事件监听
+  if (!props.realTime && props.maxTry > 0) {
+    containerInstance.value?.removeEventListener("mouseover", handleMouseOver);
+  }
 });
 </script>
 
-<style lang="scss" scoped>
-.line-clamp {
+<template>
+  <el-tooltip
+    v-if="showTip"
+    :effect
+    v-bind="{ ...attrs, class: '', style: '' }"
+    :disabled="!showTip"
+    :content="contentText"
+  >
+    <div ref="containerInstance" :class="[containerClass, attrs.class]" :style="style">
+      <slot></slot>
+    </div>
+  </el-tooltip>
+
+  <div v-else ref="containerInstance" :class="containerClass" :style="style">
+    <slot></slot>
+  </div>
+</template>
+
+<style scoped>
+/* 单行省略样式 */
+.single-line {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 多行省略样式 */
+.multi-line {
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: v-bind(line); /* 这里是超出几行省略 */
 }
 </style>

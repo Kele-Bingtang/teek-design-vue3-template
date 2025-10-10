@@ -1,0 +1,218 @@
+@use "@teek/styles/mixins/bem" as *;
+@use "@teek/styles/mixins/function" as *;
+
+/* 公共侧边栏样式（包含弹框菜单） */
+@include joins(layout-menu, layout-menu-popper) {
+  --#{$el-namespace}-menu-bg-color: var(--#{$teek-namespace}-layout-aside-bg-color);
+  --#{$el-namespace}-menu-text-color: var(--#{$teek-namespace}-layout-aside-text-color);
+  --#{$el-namespace}-menu-active-color: var(--#{$teek-namespace}-layout-aside-text-active-color);
+  --#{$el-namespace}-menu-hover-bg-color: var(--#{$teek-namespace}-layout-aside-bg-hover-color);
+  --#{$el-namespace}-menu-item-height: var(--#{$teek-namespace}-layout-aside-item-height);
+  --#{$el-namespace}-menu-sub-item-height: var(--#{$teek-namespace}-layout-aside-sub-item-height);
+  --#{$el-namespace}-menu-item-font-size: var(--#{$teek-namespace}-layout-aside-text-size);
+  --#{$el-namespace}-menu-icon-width: var(--#{$teek-namespace}-layout-aside-icon-size);
+  --#{$el-namespace}-menu-item-hover-fill: var(--#{$teek-namespace}-layout-aside-text-hover-color);
+  --#{$el-namespace}-menu-base-level-padding: 20px;
+  --#{$el-namespace}-menu-level-padding: 20px;
+  --#{$el-namespace}-menu-horizontal-height: 60px;
+  --#{$el-namespace}-menu-horizontal-sub-item-height: 36px;
+  --#{$el-namespace}-border-radius-small: 10px;
+
+  /* 垂直菜单样式 */
+  @include el-joins(menu--vertical) {
+    .is-active.is-only {
+      font-weight: cssVar(layout-aside-text-active-weight);
+      background-color: cssVar(layout-aside-bg-active-color);
+
+      &::before {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 4px;
+        content: "";
+        background: cssVar(layout-aside-left-bg-color);
+      }
+    }
+  }
+
+  /* 菜单和弹框菜单样式 */
+  :where(.#{$el-namespace}-menu, .#{$el-namespace}-menu--popup) {
+    user-select: none;
+    border: none !important;
+
+    /* 非激活图标样式 */
+    > li:not(.is-active) {
+      .#{$el-namespace}-icon,
+      .svg-icon {
+        color: cssVar(layout-aside-icon-color);
+      }
+    }
+
+    /* 子级高亮，父级也高亮 */
+    > .is-sub.is-active > .#{$el-namespace}-sub-menu__title {
+      font-weight: cssVar(layout-aside-text-active-weight);
+      color: cssVar(color-primary);
+    }
+
+    :where(.#{$el-namespace}-menu-item, .#{$el-namespace}-sub-menu) {
+      margin-bottom: 5px;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+
+      /* 父级菜单鼠标悬停样式 */
+      @include el-joins(sub-menu__title) {
+        &:hover {
+          background-color: cssVar(layout-aside-bg-hover-color) !important;
+        }
+      }
+    }
+
+    // 菜单右侧箭头
+    @include el-joins(sub-menu__icon-arrow) {
+      width: cssVar(layout-aside-arrow-size);
+      font-size: cssVar(layout-aside-arrow-size);
+    }
+  }
+
+  // 菜单圆润风格
+  @include is(round) {
+    .el-menu:not(.el-menu--horizontal) {
+      @include el-joins(menu-item, sub-menu__title) {
+        width: calc(100% - 16px);
+        margin-left: 8px;
+        border-radius: 6px;
+      }
+
+      .is-active.is-only::before {
+        content: none !important;
+      }
+    }
+  }
+}
+
+/* 非弹框侧边栏样式 */
+@include b(layout) {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  @include is(expand) {
+    @include joins(layout-aside) {
+      width: cssVar(layout-expand-aside-width);
+      transition-duration: 0.3s;
+    }
+  }
+
+  @include is(collapse) {
+    @include joins(layout-logo) {
+      &:not(.no-collapse) {
+        width: calc(cssVar(layout-collapse-aside-width) - 1px);
+      }
+
+      img {
+        margin-right: 0;
+      }
+    }
+
+    @include joins(layout-aside) {
+      width: cssVar(layout-collapse-aside-width);
+      transition-duration: 0.3s;
+    }
+
+    @include joins(layout-menu) {
+      /* 折叠后的图案添加背景色 */
+      @include el-joins(menu--collapse) {
+        > .is-active {
+          background-color: cssVar(layout-aside-bg-active-color);
+        }
+      }
+    }
+  }
+
+  /* 顶部样式 */
+  @include joins(auto-top) {
+    transition:
+      height 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+      min-height 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* 顶栏样式 */
+  @include joins(layout-header) {
+    height: cssVar(layout-header-height);
+    padding-left: 0;
+    color: cssVar(layout-header-text-color);
+    background-color: cssVar(layout-header-bg-color);
+    border-bottom: cssVar(layout-header-line);
+  }
+
+  /* 侧边栏样式 */
+  @include joins(layout-aside) {
+    height: 100%;
+    overflow-x: hidden;
+    background: cssVar(layout-aside-bg-color);
+    border-right: cssVar(layout-aside-line);
+  }
+
+  /* logo 栏样式 */
+  @include joins(layout-logo) {
+    width: calc(cssVar(layout-expand-aside-width) - 1px);
+    height: cssVar(layout-header-height);
+    overflow: hidden;
+    cursor: pointer;
+
+    span {
+      font-size: 20px;
+      color: cssVar(layout-logo-title-color);
+      white-space: nowrap;
+    }
+
+    img {
+      width: 24px;
+      margin-right: 10px;
+      object-fit: contain;
+    }
+  }
+
+  @include joins(layout-menu) {
+    flex: 1;
+
+    @include is(center) {
+      @include el-joins(menu--horizontal) {
+        justify-content: center;
+      }
+    }
+
+    @include is(end) {
+      @include el-joins(menu--horizontal) {
+        justify-content: end;
+      }
+    }
+
+    @include el-joins(menu--horizontal) {
+      width: 100%;
+
+      /* 水平菜单减去自身的 border，避免滚动条出现 */
+      height: calc(cssVar(layout-header-height) - 1px);
+      overflow-x: hidden;
+      background-color: cssVar(layout-header-bg-color);
+
+      > .#{$el-namespace}-sub-menu {
+        padding: 0;
+      }
+    }
+  }
+
+  &,
+  .#{$el-namespace}-container {
+    &.header-static {
+      overflow: auto;
+
+      @include joins(page-content) {
+        overflow: initial;
+      }
+    }
+  }
+}

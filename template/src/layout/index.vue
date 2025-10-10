@@ -1,58 +1,79 @@
 <template>
-  <component :is="LayoutComponents[layoutMode]" />
-  <ThemeDrawer />
+  <component :is="LayoutComponents[layout.layoutMode]" />
+  <ThemePanel />
+  <LockPanel />
+  <Watermark />
+
+  <el-button v-if="showThemePanelTrigger" type="primary" class="theme-panel__trigger" @click="openThemePanel">
+    <Icon :size="20"><Setting /></Icon>
+  </el-button>
 </template>
 
-<script setup lang="ts" name="Layout">
-import LayoutVertical from "./LayoutVertical/index.vue";
-import LayoutClassic from "./LayoutClassic/index.vue";
-import LayoutTransverse from "./LayoutTransverse/index.vue";
-import LayoutColumns from "./LayoutColumns/index.vue";
-import LayoutMixins from "./LayoutMixins/index.vue";
-import LayoutSubsystem from "./LayoutSubsystem/index.vue";
-import ThemeDrawer from "@/layout/components/ThemeDrawer/index.vue";
-import { useSettingsStore, useUserStore, useWebSocketStore } from "@/stores";
-import { useLayout } from "@/hooks";
-import { getPx, setStyleVar } from "@template/utils";
-import { type Component, computed, watch, watchEffect } from "vue";
-import { useRoute } from "vue-router";
-import { WebSocketKey } from "@/config/symbols";
+<script setup lang="ts">
+import type { Component } from "vue";
+import { watch } from "vue";
+import { storeToRefs } from "pinia";
+import { Setting } from "@element-plus/icons-vue";
+import { LayoutModeEnum, ThemePanelTriggerPositionEnum } from "@/common/config";
+import { useCommon, useMittBus, useUpgrade } from "@/composables";
+import { useSettingStore } from "@/pinia";
+import LockPanel from "./components/lock-panel/index.vue";
+import ThemePanel from "./components/theme-panel/index.vue";
+import Watermark from "./components/watermark/index.vue";
+import LayoutVertical from "./layout-vertical/index.vue";
+import LayoutClassic from "./layout-classic/index.vue";
+import LayoutHorizontal from "./layout-horizontal/index.vue";
+import LayoutColumns from "./layout-columns/index.vue";
+import LayoutMixins from "./layout-mixins/index.vue";
+import LayoutIFrame from "./layout-iframe/index.vue";
 
+import "./base-layout.scss";
+
+defineOptions({ name: "Layout" });
+
+// 布局组件
 const LayoutComponents: Record<string, Component> = {
-  vertical: LayoutVertical,
-  classic: LayoutClassic,
-  transverse: LayoutTransverse,
-  columns: LayoutColumns,
-  mixins: LayoutMixins,
-  subsystem: LayoutSubsystem,
+  [LayoutModeEnum.Vertical]: LayoutVertical,
+  [LayoutModeEnum.Classic]: LayoutClassic,
+  [LayoutModeEnum.Horizontal]: LayoutHorizontal,
+  [LayoutModeEnum.Columns]: LayoutColumns,
+  [LayoutModeEnum.Mixins]: LayoutMixins,
+  [LayoutModeEnum.IFrame]: LayoutIFrame,
 };
 
-const settingsStore = useSettingsStore();
-const layoutMode = computed(() => settingsStore.layoutMode);
+const settingStore = useSettingStore();
+const { layout, header } = storeToRefs(settingStore);
 
-const route = useRoute();
-const { setBrowserTitle } = useLayout();
+const { isMobile } = useCommon();
+const { openThemePanel } = useMittBus();
 
-watch(
-  () => route.fullPath,
-  () => setBrowserTitle(route), // 修改页面的 title
-  {
-    immediate: true,
-  }
-);
+// 系统版本升级
+useUpgrade();
 
-watchEffect(() => setStyleVar("--aside-width", getPx(settingsStore.menuWidth)));
+const showThemePanelTrigger = computed(() => {
+  const { Header, Fixed } = ThemePanelTriggerPositionEnum;
+  const { themePanelTriggerPosition } = layout.value;
 
-watchEffect(() => setStyleVar("--header-height", getPx(settingsStore.headerHeight)));
+  if (themePanelTriggerPosition === Fixed) return true;
+  if (themePanelTriggerPosition === Header && header.value.enabled !== true) return true;
 
-// 初始化 WebSocket
-if (import.meta.env.VITE_WEBSOCKET === "true") {
-  const useWebSocket = useWebSocketStore();
-  const url = import.meta.env.VITE_WEBSOCKET_URL || "";
+  return false;
+});
 
-  // url 后面的 ?token= 为认证信息，需要后端配合获取 token 来认证（这是普通的 GET 请求，WebSocket 无法放入请求头或者发起 POST 请求）
-  url && useWebSocket.connect(url + "?token=" + useUserStore().token);
-
-  provide(WebSocketKey, useWebSocket);
-}
+// 移动端默认为 Vertical 布局
+watch(isMobile, () => {
+  settingStore.$patch({ layout: { layoutMode: LayoutModeEnum.Vertical } });
+  settingStore.collapseSideMenu();
+});
 </script>
+
+<style lang="scss" scoped>
+.theme-panel__trigger {
+  position: fixed;
+  right: 0;
+  bottom: 5rem;
+  z-index: 99;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+</style>

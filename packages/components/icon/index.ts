@@ -1,13 +1,16 @@
-import { useInstall } from "@template/utils";
+import { useInstall } from "@teek/utils";
 import index from "./src/index.vue";
-import FontIcon from "./src/components/ts/iconfont";
-import IconifyOnline from "./src/components/ts/iconifyOnline";
-import IconifyOffline from "./src/components/ts/iconifyOffline";
+import SvgIcon from "./src/components/svg-icon.vue";
+import FontIcon from "./src/components/font-icon.vue";
+import IconifyOnline from "./src/components/iconify-online.vue";
+import IconifyOffline from "./src/components/iconify-offline.vue";
 
-export { FontIcon, IconifyOnline, IconifyOffline };
+export { SvgIcon, FontIcon, IconifyOnline, IconifyOffline };
 
-export * from "./src/useIcon";
-export * from "./src/iconType";
+export type * from "./src/types";
+
+export * from "./src/create-icon";
+export { addCollection, addIcon, Icon as IconifyIcon, listIcons } from "@iconify/vue";
 
 export const Icon = useInstall(index);
 

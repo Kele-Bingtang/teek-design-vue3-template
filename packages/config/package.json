@@ -1,0 +1,8 @@
+{
+  "name": "@teek/config",
+  "version": "0.0.1",
+  "description": "all constants are settled here",
+  "dependencies": {
+    "vue": "catalog:"
+  }
+}

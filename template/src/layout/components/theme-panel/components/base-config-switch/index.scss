@@ -1,0 +1,23 @@
+@use "@teek/styles/mixins/bem" as *;
+@use "@teek/styles/mixins/namespace" as *;
+
+@include b(base-config-switch) {
+  @include e(item) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 14px 0;
+
+    span {
+      font-size: 14px;
+    }
+
+    @include el-joins(select) {
+      width: 40%;
+    }
+
+    @include el-joins(input-number) {
+      width: 40%;
+    }
+  }
+}

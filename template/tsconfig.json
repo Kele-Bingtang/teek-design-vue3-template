@@ -7,6 +7,7 @@
 
     // Required in Vue projects
     "jsx": "preserve",
+    "jsxImportSource": "vue",
 
     // `"noImplicitThis": true` is part of `strict`
     // Added again here in case some users decide to disable `strict`.
@@ -14,8 +15,7 @@
     "noImplicitThis": true,
     "strict": true,
     // 解决 JSX 元素隐式具有类型 "any"，因为不存在接口 "JSX.IntrinsicElements"
-    "noImplicitAny": false,
-    // "jsxImportSource": "vue",
+    // "noImplicitAny": false,
 
     // Required in Vite
     "isolatedModules": true,
@@ -39,27 +39,42 @@
     // See <https://github.com/vuejs/vue-cli/pull/5688>
     "skipLibCheck": true,
 
-    "lib": [
-      // Should target at least ES2016 in Vue 3
-      // Support for newer versions of language built-ins are
-      // left for the users to include, because that would require:
-      //   - either the project doesn't need to support older versions of browsers;
-      //   - or the project has properly included the necessary polyfills.
-      "ES2016",
-
-      "DOM",
-      "DOM.Iterable"
-
-      // No `ScriptHost` because Vue 3 dropped support for IE
-    ],
+    "lib": ["esnext", "DOM", "DOM.Iterable"],
 
     "baseUrl": ".",
     "paths": {
-      "@": ["src"],
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@assets/*": ["src/common/assets/*"],
+      "@api/*": ["src/common/api/*"],
+      "@config/*": ["src/common/config/*"],
+      "@directives/*": ["src/common/directives/*"],
+      "@enums/*": ["src/common/enums/*"],
+      "@http/*": ["src/common/http/*"],
+      "@languages/*": ["src/common/languages/*"],
+      "@styles/*": ["src/common/styles/*"],
+      "@utils/*": ["src/common/utils/*"],
+      "@components/*": ["src/components/*"],
+      "@composables/*": ["src/composables/*"],
+      "@pinia/*": ["src/pinia/*"],
+      "@router/*": ["src/router/*"],
+
+      // 支持提示 index.ts
+      "@assets": ["src/common/assets"],
+      "@api": ["src/common/api"],
+      "@config": ["src/common/config"],
+      "@directives": ["src/common/directives"],
+      "@enums": ["src/common/enums"],
+      "@http": ["src/common/http/*"],
+      "@languages": ["src/common/languages"],
+      "@styles": ["src/common/styles"],
+      "@utils": ["src/common/utils"],
+      "@components": ["src/components"],
+      "@composables": ["src/composables"],
+      "@pinia": ["src/pinia"],
+      "@router": ["src/router"]
     },
     "types": ["element-plus/global", "node"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "vite.config.mts", "types/**/*.d.ts"],
-  "exclude": ["node_modules", "dist", "**/*.js"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "vite.config.mts"],
+  "exclude": ["node_modules", "dist", "**/.*"]
 }

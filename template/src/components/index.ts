@@ -1,2 +1,4 @@
-export * from "./Permission";
-export * from "./SwitchDark";
+export * from "./permission";
+export * from "./switch-dark";
+
+export * from "@teek/components";

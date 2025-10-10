@@ -1,0 +1,39 @@
+@use "@teek/styles/mixins/bem" as *;
+
+@include b(theme-panel-modal) {
+  background-color: transparent;
+}
+
+@include b(theme-panel) {
+  // 背景滤镜
+  background-color: rgb(255 255 255 / 0%);
+  box-shadow: 0 0 30px rgb(0 0 0 / 10%);
+  backdrop-filter: blur(25px);
+
+  h3 {
+    margin: 20px 0;
+    font-weight: 600;
+    text-align: center;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  @include el-joins(select__wrapper, input__wrapper) {
+    background-color: rgb(255 255 255 / 0%);
+  }
+
+  // 去除滚动条
+  @include el-joins(drawer__body) {
+    &::-webkit-scrollbar {
+      width: 0 !important;
+    }
+  }
+}
+
+.dark {
+  @include b(theme-panel) {
+    background: rgba($color: #000000, $alpha: 50%) !important;
+  }
+}

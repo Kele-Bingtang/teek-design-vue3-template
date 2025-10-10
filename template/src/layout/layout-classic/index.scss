@@ -1,0 +1,14 @@
+@use "@teek/styles/mixins/bem" as *;
+@use "@teek/styles/mixins/function" as *;
+
+@include b(classic-layout) {
+  @include e(header-left) {
+    gap: 11px;
+    height: cssVar(layout-header-height);
+  }
+
+  /* 内容区减去 header 高度，否则无法滚动 */
+  @include e(content) {
+    height: calc(100% - cssVar(layout-header-height));
+  }
+}

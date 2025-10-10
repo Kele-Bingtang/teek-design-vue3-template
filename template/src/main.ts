@@ -1,16 +1,27 @@
 import { createApp } from "vue";
-import pinia from "@/stores";
+import pinia from "@/pinia";
+import router from "@/router";
+import directives from "@teek/directives";
+import I18n from "@teek/languages";
+import { errorHandler, checkNeed, log } from "@/common/utils";
+import { Icon, Auth, Role } from "@/components";
 import App from "./App.vue";
-import router from "./router";
-import "@template/styles/normalize.css"; // CSS Reset
-import directives from "@template/directives";
-import I18n from "@template/i18n";
 import "virtual:svg-icons-register";
-import { Auth, Role } from "@/components";
-import { Icon } from "@template/components";
-import { errorHandler, checkNeed } from "@/utils";
-import { log } from "@template/utils";
-import "@template/styles/tailwind.css";
+
+import "@teek/styles/normalize.css";
+import "@teek/styles/reset.css";
+import "@teek/styles/var/index.scss"; // 主题变量
+import "@teek/styles/common/base.scss";
+import "@teek/styles/common/atomic.scss";
+import "@teek/styles/common/scrollbar.scss";
+import "@teek/styles/common/transition.scss";
+import "@teek/styles/common/theme-animation.scss";
+import "@teek/styles/element-plus/el-ui.scss"; // 重写部分 Element Plus 样式
+import "@teek/styles/element-plus/el-dark.scss";
+import "@teek/styles/plugin.scss";
+
+import "@teek/static/iconfont/system/iconfont.js"; // 系统彩色图标
+import "@teek/static/iconfont/system/iconfont.css"; // 系统图标
 
 const app = createApp(App);
 
@@ -22,13 +33,16 @@ app.use(Auth).use(Role).use(Icon);
 
 // 是否全部引入 Element Plus 的样式
 if (import.meta.env.VITE_LOAD_ALL_EP_STYLE === "true") {
-  import("element-plus/theme-chalk/src/index.scss");
+  import("@teek/styles/element-plus/el-light.scss");
 }
 
 // 是否全部引入 Element Plus 的组件
 if (import.meta.env.VITE_LOAD_ALL_EP_COMPONENTS === "true") {
-  // EP 样式按需引入和组件全部引入有冲突。因为样式按需引入的前提是手动 import 组件（import 组件才根据组件去找样式），而组件全部引入导致在 vue 文件不需要 import。所以样式按需引入会失效，因此这里全量引入样式
-  if (import.meta.env.VITE_LOAD_ALL_EP_STYLE === "false") import("element-plus/theme-chalk/src/index.scss");
+  // EP 样式按需引入和组件全部引入有冲突。因为样式按需引入的前提是手动 import 组件（import 组件才根据组件去找样式），而这里组件全部引入导致在 vue 文件不需要 import。所以样式按需引入会失效，因此这里需要全量引入样式
+  if (import.meta.env.VITE_LOAD_ALL_EP_STYLE === "false") {
+    import("@teek/styles/element-plus/el-light.scss");
+  }
+
   import("element-plus").then(ElementPlus => {
     app.use(ElementPlus);
   });

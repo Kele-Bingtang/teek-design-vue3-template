@@ -1,0 +1,16 @@
+@use "@teek/styles/mixins/bem" as *;
+@use "@teek/styles/mixins/function" as *;
+@use "@teek/styles/mixins/namespace" as *;
+
+@include b(refresh) {
+  width: 45px;
+  height: 100%;
+  font-size: 20px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color cssVar(transition-duration);
+
+  &:hover {
+    background-color: cssVar(gray-200);
+  }
+}

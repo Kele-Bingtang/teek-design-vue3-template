@@ -1,0 +1,11 @@
+@use "@teek/styles/mixins/bem" as *;
+@use "@teek/styles/mixins/function" as *;
+
+@include el-joins(button) {
+  color: cssVar(layout-tab-text-color);
+
+  &:hover {
+    color: cssVar(color-primary);
+    background-color: cssVar(gray-200) !important;
+  }
+}

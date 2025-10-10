@@ -1,0 +1,9 @@
+{
+  "name": "teek",
+  "version": "0.0.1",
+  "description": "all utils are settled here",
+  "dependencies": {
+    "element-plus": "catalog:",
+    "vue": "catalog:"
+  }
+}

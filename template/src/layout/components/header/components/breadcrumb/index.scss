@@ -1,0 +1,41 @@
+@use "@teek/styles/mixins/bem" as *;
+@use "@teek/styles/mixins/function" as *;
+
+@include b(breadcrumb) {
+  margin-left: 10px;
+  overflow: hidden;
+
+  @include e(link) {
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    color: cssVar(layout-header-breadcrumb-link-color);
+
+    &:not(.no-click):hover {
+      color: cssVar(color-primary);
+    }
+
+    @include no(click) {
+      color: cssVar(layout-header-breadcrumb-text-color);
+    }
+  }
+
+  @include e(icon) {
+    margin-right: 6px;
+    font-size: 16px;
+
+    &.svg-icon {
+      font-size: 12px;
+    }
+  }
+
+  @include e(home-icon) {
+    margin-right: 16px;
+    font-size: 20px;
+
+    &:not(.no-click):hover {
+      color: cssVar(color-primary);
+      cursor: pointer;
+    }
+  }
+}

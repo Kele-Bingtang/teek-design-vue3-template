@@ -1,0 +1,13 @@
+{
+  "name": "@teek/http",
+  "version": "0.0.1",
+  "description": "all http request are settled here",
+  "dependencies": {
+    "axios": "catalog:",
+    "element-plus": "catalog:",
+    "qs": "catalog:"
+  },
+  "devDependencies": {
+    "@types/qs": "catalog:"
+  }
+}
