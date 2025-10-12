@@ -16,5 +16,5 @@
   解决方案：因此请将含有样式的文件在 main.ts 里引入，这样样式类只会被加载一次，可提升 80% 的性能
 
   说明：该文件适合放入全局变量/函数，这样在组件中无需引入就可以直接使用这些全局变量/函数
-    值得一提的是，additionalData 仅注入到每个 Vue 组件的 style 里，如果单建 SCSS 文件，则需要手动引入使用全局变量的文件，如 @styles/common/var.scss
+    值得一提的是，additionalData 仅注入到每个 Vue 组件的 style 里，如果单建 SCSS 文件，则需要手动引入使用全局变量的文件，如 @teek/styles/common/var.scss
 */

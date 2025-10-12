@@ -38,6 +38,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "cSpell.words": [
+    "teek",
     "nprogress",
     "Pinia",
     "unplugin",

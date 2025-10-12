@@ -1,5 +1,5 @@
 import type { App, Plugin } from "vue";
-import { INSTALLER_SYMBOL } from "@/common/config";
+import { INSTALLER_SYMBOL } from "@teek/config";
 
 export const installComponents = (components: Plugin[] = []) => {
   const install = (app: App) => {

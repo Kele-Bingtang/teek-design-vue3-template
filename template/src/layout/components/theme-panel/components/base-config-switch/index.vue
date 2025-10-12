@@ -15,7 +15,7 @@ import {
   HeaderShowModeEnum,
   MenuStyleEnum,
 } from "@/common/config";
-import { languageOptions } from "@teek/languages";
+import { languageOptions } from "@/common/languages";
 import { useNamespace, useBrowserTitle, useCommon } from "@/composables";
 
 defineOptions({ name: "BaseConfigSwitch" });

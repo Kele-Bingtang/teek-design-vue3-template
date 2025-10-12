@@ -2,7 +2,7 @@
 import type { IconProps } from "./types";
 import { useSlots, computed, toRaw } from "vue";
 import { addUnit, isObject, isString } from "@teek/utils";
-import { useNamespace } from "@/composables";
+import { useNamespace } from "@teek/composables";
 import SvgIcon from "./components/svg-icon.vue";
 import FontIcon from "./components/font-icon.vue";
 import IconifyOffline from "./components/iconify-offline.vue";
@@ -48,8 +48,6 @@ const fontIconType = computed(() => {
   if (!isString(icon)) return "";
 
   const caseIconName = icon.toLowerCase();
-
-  console.log(caseIconName);
 
   if (caseIconName.startsWith("if-") || caseIconName.startsWith("icon-")) return "iconfont";
   if (

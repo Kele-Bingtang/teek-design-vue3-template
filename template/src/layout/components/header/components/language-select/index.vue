@@ -3,7 +3,7 @@ import type { LanguageEnum } from "@/common/config";
 import { useI18n } from "vue-i18n";
 import { storeToRefs } from "pinia";
 import { ElDropdown, ElDropdownMenu, ElDropdownItem, ElMessage } from "element-plus";
-import { languageOptions } from "@teek/languages";
+import { languageOptions } from "@/common/languages";
 import { useBrowserTitle } from "@/composables";
 import { useLayoutStore } from "@/pinia";
 

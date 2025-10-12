@@ -2,9 +2,9 @@ import components from "./components";
 import { installComponents } from "./installer";
 
 export * from "@teek/components";
-export * from "@/common/config";
+export * from "@teek/config";
 export * from "@teek/directives";
-export * from "@teek/hooks";
+export * from "@teek/composables";
 export * from "@teek/http";
 export * from "@teek/utils";
 

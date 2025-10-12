@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import pinia from "@/pinia";
 import router from "@/router";
 import directives from "@teek/directives";
-import I18n from "@teek/languages";
+import i18n from "@/common/languages";
 import { errorHandler, checkNeed, log } from "@/common/utils";
 import { Icon, Auth, Role } from "@/components";
 import App from "./App.vue";
@@ -48,4 +48,4 @@ if (import.meta.env.VITE_LOAD_ALL_EP_COMPONENTS === "true") {
   });
 }
 
-app.use(I18n).use(pinia).use(router).use(directives).mount("#app");
+app.use(i18n).use(pinia).use(router).use(directives).mount("#app");

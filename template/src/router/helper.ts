@@ -1,6 +1,6 @@
 import type { RouteLocationNormalizedLoaded } from "vue-router";
 import { serviceConfig } from "@/common/config";
-import { t } from "@teek/languages";
+import { t } from "@/common/languages";
 import { isFunction } from "@/common/utils";
 
 type Route = RouteLocationNormalizedLoaded | RouterConfigRaw;

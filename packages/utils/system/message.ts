@@ -159,7 +159,6 @@ function messageType(
     offset,
     appendTo,
     grouping,
-    // antd-message 在 src/common/styles/plugins.scss 下
     customClass: mode === "antd" ? "antd-message" : mode,
     onClose: () => (isFunction(onClose) ? onClose() : null),
   });

@@ -1,3 +1,4 @@
+import type { I18nOptions } from "vue-i18n";
 import { createI18n } from "vue-i18n";
 import { LanguageEnum } from "@teek/config";
 import { isObject } from "@teek/utils";
@@ -8,7 +9,7 @@ import enUS from "./locales/en-US";
 const messages = {
   [LanguageEnum.ZhCn]: zhCN,
   [LanguageEnum.EnUs]: enUS,
-};
+} as I18nOptions["messages"];
 
 // 多语言选项
 export const languageOptions = [
@@ -20,7 +21,6 @@ export const languageOptions = [
  * 获取默认语言
  */
 export const getDefaultLocale = () => {
-  // const layoutStore = localStorage.getItem("layoutStore");
   const lang = getBrowserLang();
 
   document.documentElement.lang = lang;
@@ -30,8 +30,8 @@ export const getDefaultLocale = () => {
 /**
  * 获取浏览器默认语言
  */
-export const getBrowserLang = () => {
-  const browserLang = navigator.language ? navigator.language : navigator.browserLanguage;
+export const getBrowserLang = (): string => {
+  const browserLang = navigator.language ? navigator.language : (navigator as any).browserLanguage;
   if (["cn", "zh", "zh-cn"].includes(browserLang.toLowerCase())) return LanguageEnum.ZhCn;
   else return LanguageEnum.EnUs;
 };
@@ -67,7 +67,7 @@ const formatTranslate = (message: string, option?: Record<string, string | numbe
 /**
  * 国际化实例
  */
-const i18n = createI18n({
+export const i18n = createI18n({
   legacy: false, // 如果要支持 compositionAPI，此项必须设置为 false
   locale: getDefaultLocale(), // 设置语言类型
   globalInjection: true, // 全局注册 $t 方法
@@ -75,26 +75,11 @@ const i18n = createI18n({
   fallbackLocale: LanguageEnum.ZhCn,
 });
 
-// 异步（远程）加载语言文件（文件过大可采用）
-// const loadLanguageAsync = async (lang: LanguageEnum) => {
-//   if (!messages[lang]) {
-//     const ms = await import(`./locales/${lang}.ts`);
-//     messages[lang] = ms.default;
-//   }
-//   i18n.global.setLocaleMessage(lang, messages[lang]);
-// };
-
-// const setupI18n = async () => {
-//   const lang = await getDefaultLocale();
-//   await loadLanguageAsync(lang);
-// };
-
-// setupI18n();
-
 export const setLocale = (locale: LanguageEnum | `${LanguageEnum}`) => {
   i18n.global.locale.value = locale;
 };
 
 export const $t = i18n.global.t;
+export const $te = i18n.global.te;
 
 export default i18n;

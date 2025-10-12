@@ -121,7 +121,7 @@ export interface GlobalHandlers {
 /**
  * 缓存配置
  */
-export interface CacheConfig {
+interface CacheConfig {
   // 是否启用缓存
   enabled: boolean;
   // 缓存最大时间（毫秒）
@@ -133,7 +133,7 @@ export interface CacheConfig {
 /**
  * 重试配置
  */
-export interface RetryConfig {
+interface RetryConfig {
   // 重试次数
   count: number;
   // 重试延迟（毫秒）
