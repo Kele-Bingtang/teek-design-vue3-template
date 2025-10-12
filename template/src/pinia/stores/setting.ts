@@ -1,6 +1,7 @@
 import { computed } from "vue";
 import { defineStore } from "pinia";
 import {
+  serviceConfig,
   HeaderMenuAlignEnum,
   HeaderStyleEnum,
   LayoutModeEnum,
@@ -11,7 +12,6 @@ import {
   MenuShowModeEnum,
   MenuStyleEnum,
 } from "@/common/config";
-import { serviceConfig } from "@/common/config";
 import { cacheOperator, localStorageProxy } from "@/common/utils";
 
 export const useSettingStore = defineStore(

@@ -63,7 +63,7 @@ export function getPluginsList(command: string, viteEnv: ImportMetaEnv) {
 
     // 使用 svg 图标
     createSvgIconsPlugin({
-      iconDirs: [resolve(process.cwd(), "src/common/assets/icons")],
+      iconDirs: [resolve(process.cwd(), "src/common/assets/icons"), resolve(process.cwd(), "../packages/static/icons")],
       symbolId: "icon-[dir]-[name]",
     }),
 

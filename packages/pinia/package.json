@@ -1,0 +1,8 @@
+{
+  "name": "@teek/pinia",
+  "version": "0.0.1",
+  "description": "all pinia are settled here",
+  "dependencies": {
+    "pinia": "catalog:"
+  }
+}

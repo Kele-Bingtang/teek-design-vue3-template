@@ -33,11 +33,11 @@
   ],
   "dependencies": {
     "@teek/components": "workspace:*",
+    "@teek/composables": "workspace:*",
     "@teek/config": "workspace:*",
     "@teek/directives": "workspace:*",
-    "@teek/composables": "workspace:*",
-    "@teek/languages": "workspace:*",
     "@teek/http": "workspace:*",
+    "@teek/languages": "workspace:*",
     "@teek/static": "workspace:*",
     "@teek/styles": "workspace:*",
     "@teek/utils": "workspace:*"
