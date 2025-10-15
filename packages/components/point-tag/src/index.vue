@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { PointTagProps } from "./types";
-import { useNamespace } from "@/composables";
+import { useNamespace } from "@teek/composables";
 
 defineOptions({ name: "PointTag" });
 
@@ -12,14 +12,19 @@ withDefaults(defineProps<PointTagProps>(), {
   size: 8,
   position: "left",
   offset: 4,
+  text: "",
 });
 </script>
 
 <template>
+  <slot v-if="position === 'right'">
+    {{ text }}
+  </slot>
   <i
     :class="[ns.b(), ns.is(position), ns.is(type, !color)]"
     :style="{ '--point-color': color, '--point-size': size, '--point-offset': offset }"
   />
+  <slot v-if="position === 'left'">{{ text }}</slot>
 </template>
 
 <style lang="scss" scoped>

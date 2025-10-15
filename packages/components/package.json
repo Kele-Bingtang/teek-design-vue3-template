@@ -4,6 +4,7 @@
   "description": "all components are settled here",
   "dependencies": {
     "@element-plus/icons-vue": "catalog:",
+    "@vueuse/core": "catalog:",
     "element-plus": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:"

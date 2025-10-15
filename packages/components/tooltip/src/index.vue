@@ -7,12 +7,8 @@
 <script setup lang="ts">
 import type { CSSProperties } from "vue";
 import { ref, computed, onMounted, onBeforeUnmount, watch, useTemplateRef, useAttrs } from "vue";
-import { storeToRefs } from "pinia";
 import { ElTooltip } from "element-plus";
 import { useResizeObserver } from "@vueuse/core";
-import { useSettingStore } from "@/pinia";
-import { serviceConfig } from "@/common/config";
-import { isFunction } from "@teek/utils";
 import type { TooltipProps } from "./types";
 
 defineOptions({ name: "Tooltip" });
@@ -29,14 +25,6 @@ const contentText = ref(""); // 文本内容
 const tryCount = ref(0); // 当前尝试次数
 
 const attrs = useAttrs();
-
-const { isDark } = storeToRefs(useSettingStore());
-
-const effect = computed(() => {
-  const effect = serviceConfig.layout.tooltipEffect;
-  if (isFunction(effect)) return effect(isDark.value);
-  return effect;
-});
 
 // 容器 class
 const containerClass = computed(() => {
@@ -135,13 +123,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <el-tooltip
-    v-if="showTip"
-    :effect
-    v-bind="{ ...attrs, class: '', style: '' }"
-    :disabled="!showTip"
-    :content="contentText"
-  >
+  <el-tooltip v-if="showTip" v-bind="{ ...attrs, class: '', style: '' }" :disabled="!showTip" :content="contentText">
     <div ref="containerInstance" :class="[containerClass, attrs.class]" :style="style">
       <slot></slot>
     </div>
