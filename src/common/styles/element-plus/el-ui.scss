@@ -184,13 +184,10 @@
 
 // 修改 el-tag 样式
 .#{$el-namespace}-tag {
-  font-weight: bold;
-  border: 0 !important;
-  border-radius: 6px !important;
+  font-weight: 600;
 
   &--default {
     height: 26px !important;
-    line-height: 26px !important;
   }
 }
 
