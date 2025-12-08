@@ -31,5 +31,11 @@ const { isMobile } = useCommon();
   padding-right: 15px;
   overflow: hidden;
   white-space: nowrap;
+
+  > div:not(.customize) {
+    &:hover {
+      background-color: cssVar(layout-header-bg-hover-color);
+    }
+  }
 }
 </style>
