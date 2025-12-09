@@ -5,6 +5,7 @@ import { storeToRefs } from "pinia";
 import { ElContainer, ElAside, ElHeader, ElScrollbar } from "element-plus";
 import { Fold, Expand } from "@element-plus/icons-vue";
 import { serviceConfig, HOME_URL } from "@/common/config";
+import { simplifyText } from "@/common/utils";
 import { Tooltip } from "@/components";
 import { useNamespace, useCommon, useMenu } from "@/composables";
 import { useSettingStore } from "@/pinia";
@@ -130,7 +131,9 @@ const changeMenuItem = (item: RouterConfig) => {
       :style="{ ...asideStyle, left: '72px' }"
     >
       <div :class="[ns.e('logo'), ns.join('layout-logo')]" class="flx-center">
-        <span v-show="menuItem.length">{{ menu.collapsed ? "K" : serviceConfig.layout.name }}</span>
+        <span v-show="menuItem.length">
+          {{ menu.collapsed ? simplifyText(serviceConfig.layout.name) : serviceConfig.layout.name }}
+        </span>
       </div>
 
       <el-scrollbar v-if="menuItem?.length">

@@ -1,4 +1,4 @@
-import { isFunction, isObject } from "../helper";
+import { isFunction, isObject } from "../core";
 import snowflake from "./snowflakes";
 
 /**
