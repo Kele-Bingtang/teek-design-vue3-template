@@ -56,7 +56,7 @@ const { menu, logo, header } = storeToRefs(settingStore);
     </el-header>
 
     <el-container :class="ns.e('content')">
-      <el-aside v-if="menu.enabled" :class="[ns.join('layout-aside'), ns.is(menu.theme)]" :style="asideStyle">
+      <el-aside v-if="menu.enabled" :class="ns.join('layout-aside')" :style="asideStyle">
         <Menu
           :class="[ns.join('layout-menu'), ns.b('menu'), ns.is(menu.style)]"
           :popper-class="`${ns.join('layout-menu-popper')} ${ns.b('menu-popper')} ${ns.is(menu.style)}`"

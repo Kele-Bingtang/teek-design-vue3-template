@@ -77,7 +77,7 @@
 }
 
 // 菜单单独深色模式变量，与中性深色模式变量一致（在浅色/深色模式生效，切换深色模式不会覆盖变量）
-.#{$teek-namespace}-layout-aside.is-dark {
+.#{$teek-namespace}-layout.#{$teek-namespace}-menu-theme-dark .#{$teek-namespace}-layout-aside {
   --#{$el-namespace}-color-primary: #6d94e6;
   --#{$teek-namespace}-color-primary: var(--#{$el-namespace}-color-primary);
 
@@ -124,23 +124,24 @@
         --#{$teek-namespace}-layout-aside-icon-color: #ffffff;
         --#{$teek-namespace}-layout-aside-icon-active-color: #ffffff;
       }
-    }
 
-    &.#{$teek-namespace}-classic-layout,
-    &.#{$teek-namespace}-horizontal-layout,
-    &.#{$teek-namespace}-mixins-layout {
-      // 顶部栏
-      --#{$teek-namespace}-layout-header-bg-color: #2b3a74;
-      --#{$teek-namespace}-layout-header-text-color: #ffffff;
-      --#{$teek-namespace}-layout-header-bg-hover-color: var(--#{$teek-namespace}-gray-600);
+      &.#{$teek-namespace}-classic-layout,
+      &.#{$teek-namespace}-horizontal-layout,
+      &.#{$teek-namespace}-mixins-layout {
+        // 顶部栏
+        --#{$teek-namespace}-layout-header-bg-color: #2b3a74;
+        --#{$teek-namespace}-layout-header-text-color: #ffffff;
+        --#{$teek-namespace}-layout-header-bg-hover-color: var(--#{$el-namespace}-color-primary-light-1);
 
-      // 顶部左侧面包屑
-      --#{$teek-namespace}-layout-header-breadcrumb-link-color: var(--#{$teek-namespace}-text-gray-300);
-      --#{$teek-namespace}-layout-header-breadcrumb-text-color: var(--#{$teek-namespace}-text-gray-400);
-      --#{$teek-namespace}-layout-logo-title-color: #ffffff;
-    }
-    &.#{$teek-namespace}-columns-layout {
-      --#{$teek-namespace}-layout-aside-line: 1px solid #9fa1b0;
+        // 顶部左侧面包屑
+        --#{$teek-namespace}-layout-header-breadcrumb-link-color: var(--#{$teek-namespace}-text-gray-300);
+        --#{$teek-namespace}-layout-header-breadcrumb-text-color: var(--#{$teek-namespace}-text-gray-400);
+        --#{$teek-namespace}-layout-logo-title-color: #ffffff;
+      }
+
+      &.#{$teek-namespace}-columns-layout {
+        --#{$teek-namespace}-layout-aside-line: 1px solid #9fa1b0;
+      }
     }
   }
 }
