@@ -136,6 +136,7 @@ export default {
       themeSelect: {
         light: "亮色",
         dark: "暗色",
+        blue: "蓝色",
       },
       style: "风格",
       styleSelect: {
