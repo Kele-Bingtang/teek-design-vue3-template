@@ -7,7 +7,7 @@ import { LOGIN_URL, OpenThemePanelKey } from "@/common/config";
 import { mittBus } from "@/common/utils";
 import { useNamespace, useCommon, useTheme } from "@/composables";
 import { useSettingStore, useUserStore } from "@/pinia";
-import { BaseConfig, BrowserTitle, GlobalTheme, LayoutMode, MenuTheme } from "./components";
+import { LayoutMode, MenuTheme, GlobalTheme, BaseConfig, BrowserTitle } from "./components";
 
 import "./index.scss";
 import router from "@/router";

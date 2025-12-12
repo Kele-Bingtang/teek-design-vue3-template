@@ -48,12 +48,7 @@ const handleClickOutSide = () => {
       ns.is('menu-expand', !menu.collapsed),
     ]"
   >
-    <el-aside
-      v-if="menu.enabled"
-      :class="[ns.join('layout-aside'), ns.is(menu.theme)]"
-      class="flx-column"
-      :style="asideStyle"
-    >
+    <el-aside v-if="menu.enabled" :class="ns.join('layout-aside')" class="flx-column" :style="asideStyle">
       <div :class="ns.join('layout-logo')" class="flx-center" @click="router.push(HOME_URL)">
         <img v-if="logo.enable" :src="serviceConfig.logo.source" alt="logo" />
         <span v-show="!menu.collapsed">{{ serviceConfig.layout.name }}</span>
