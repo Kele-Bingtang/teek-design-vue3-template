@@ -135,6 +135,7 @@ export default {
       themeSelect: {
         light: "Light",
         dark: "Dark",
+        blue: "Blue",
       },
       collapse: "Collapse menu",
       accordion: "Menu accordion",

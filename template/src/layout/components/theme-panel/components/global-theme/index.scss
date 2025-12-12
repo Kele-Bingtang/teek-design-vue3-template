@@ -1,11 +1,12 @@
 @use "@teek/styles/mixins/bem" as *;
-@use "@teek/styles/mixins/function" as *;
 @use "@teek/styles/mixins/namespace" as *;
+@use "@teek/styles/mixins/function" as *;
 
-@include b(menu-theme-switch) {
-  @include e(item) {
+@include b(global-theme) {
+  @include e(theme-item) {
     position: relative;
     width: calc(100% / 3 - 10px);
+    cursor: pointer;
   }
 
   @include e(box) {
@@ -41,5 +42,20 @@
     margin: 10px 0;
     font-size: 14px;
     text-align: center;
+  }
+
+  @include e(item) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 14px 0;
+
+    span {
+      font-size: 14px;
+    }
+
+    @include el-joins(select) {
+      width: 40%;
+    }
   }
 }

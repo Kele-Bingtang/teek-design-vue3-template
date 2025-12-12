@@ -81,7 +81,13 @@ watch(
 
 <template>
   <el-container
-    :class="[ns.join('layout'), ns.b(), ns.is('collapse', menu.collapsed), ns.is('expand', !menu.collapsed)]"
+    :class="[
+      ns.b(),
+      ns.join('layout'),
+      ns.join(`menu-theme-${menu.theme}`),
+      ns.is('menu-collapse', menu.collapsed),
+      ns.is('menu-expand', !menu.collapsed),
+    ]"
   >
     <el-header
       v-if="header.enabled"

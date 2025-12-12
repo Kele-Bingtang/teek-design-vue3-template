@@ -28,7 +28,13 @@ const { menu, logo, header } = storeToRefs(settingStore);
 <template>
   <!-- 布局：SideMenu 占屏幕左侧，Header 和 Main Content 占右侧 -->
   <el-container
-    :class="[ns.join('layout'), ns.b(), ns.is('collapse', menu.collapsed), ns.is('expand', !menu.collapsed)]"
+    :class="[
+      ns.b(),
+      ns.join('layout'),
+      ns.join(`menu-theme-${menu.theme}`),
+      ns.is('menu-collapse', menu.collapsed),
+      ns.is('menu-expand', !menu.collapsed),
+    ]"
   >
     <el-header
       v-if="header.enabled"

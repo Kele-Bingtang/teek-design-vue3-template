@@ -1,7 +1,7 @@
 @use "@teek/styles/mixins/bem" as *;
 @use "@teek/styles/mixins/namespace" as *;
 
-@include b(base-config-switch) {
+@include b(base-config) {
   @include e(item) {
     display: flex;
     align-items: center;

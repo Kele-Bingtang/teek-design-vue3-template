@@ -18,9 +18,9 @@ import {
 import { languageOptions } from "@/common/languages";
 import { useNamespace, useBrowserTitle, useCommon } from "@/composables";
 
-defineOptions({ name: "BaseConfigSwitch" });
+defineOptions({ name: "BaseConfig" });
 
-const ns = useNamespace("base-config-switch");
+const ns = useNamespace("base-config");
 
 const settingStore = useSettingStore();
 const layoutStore = useLayoutStore();
