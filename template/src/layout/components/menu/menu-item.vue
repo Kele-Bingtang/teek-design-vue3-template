@@ -101,6 +101,7 @@ const handleMenuClick = (menuItem: RouterConfig) => {
 
 <style lang="scss" scoped>
 @use "@teek/styles/mixins/bem" as *;
+@use "@teek/styles/mixins/function" as *;
 
 @include joins(icon) {
   width: cssVarEl(menu-icon-width);
