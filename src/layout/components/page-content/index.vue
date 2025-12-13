@@ -81,7 +81,7 @@ watchEffect(() => {
   <Maximize v-if="layout.maximize" />
   <el-main :class="ns.b()" class="page-content" v-bind="$attrs">
     <router-view v-slot="{ Component, route }">
-      <Loading route />
+      <Loading v-if="transition.loading" route />
 
       <transition
         v-bind="route.meta.transitionProps"
