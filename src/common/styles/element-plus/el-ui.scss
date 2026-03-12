@@ -173,10 +173,10 @@
 }
 
 .#{$el-namespace}-checkbox {
-  .el-checkbox__input .#{$el-namespace}-checkbox__inner {
-    width: 18px;
-    height: 18px;
-    border-radius: 4px;
+  .#{$el-namespace}-checkbox__inner {
+    width: 18px !important;
+    height: 18px !important;
+    border-radius: 4px !important;
 
     &::before {
       top: 6px !important;
