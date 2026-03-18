@@ -16,7 +16,6 @@ import {
   Lock,
   Unlock,
 } from "@element-plus/icons-vue";
-import { openRouteInNewWindow } from "@/common/utils";
 import { useSettingStore } from "@/pinia";
 import { useTabNav } from "../../use-tab-nav";
 
@@ -29,6 +28,7 @@ const {
   initContextMenu,
   refreshSelectedTab,
   toggleFixed,
+  openRouteInNewWindow,
   closeTab,
   closeLeftTab,
   closeRightTab,
@@ -70,7 +70,7 @@ const dropdownMenuItem = [
   {
     label: t("_tabNav.openInNewTab"),
     icon: TopRight,
-    click: () => openRouteInNewWindow(activeTab.value.path),
+    click: () => openRouteInNewWindow(activeTab.value.name, activeTab.value.path),
   },
   {
     label: t("_tabNav.closeCurrent"),

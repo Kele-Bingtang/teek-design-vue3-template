@@ -16,7 +16,6 @@ import {
   Lock,
   Unlock,
 } from "@element-plus/icons-vue";
-import { openRouteInNewWindow } from "@/common/utils";
 import { useNamespace } from "@/composables";
 import { useSettingStore } from "@/pinia";
 import { useTabNav } from "../../use-tab-nav";
@@ -30,6 +29,7 @@ const {
   tabNavList,
   refreshSelectedTab,
   toggleFixed,
+  openRouteInNewWindow,
   closeTab,
   closeLeftTab,
   closeRightTab,
@@ -79,7 +79,7 @@ const rightMenuItem = [
   {
     label: t("_tabNav.openInNewTab"),
     icon: TopRight,
-    click: () => openRouteInNewWindow(props.selectedTab.path),
+    click: () => openRouteInNewWindow(props.selectedTab.name, props.selectedTab.path),
   },
   {
     label: t("_tabNav.closeCurrent"),
