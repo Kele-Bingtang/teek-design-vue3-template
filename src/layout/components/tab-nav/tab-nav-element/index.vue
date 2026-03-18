@@ -59,7 +59,7 @@ const tabClick = (tabItem: TabsPaneContext) => {
 
 // Tab 鼠标中键点击回调
 const tabMiddleClick = (tab: TabProps) => {
-  if (tabNav.value.middleClickToOpenInNewWindow) return openRouteInNewWindow(tab.name, tab.path);
+  if (tabNav.value.middleClickToOpenInNewWindow) return openRouteInNewWindow(tab.path);
   if (tabNav.value.middleClickToOpen) return router.push(tab.path);
   if (tabNav.value.middleClickToClose) tabRemove(tab.path);
 };

@@ -118,7 +118,7 @@ const handleClick = (tab: TabProps, type: "left" | "middle") => {
 
   // 鼠标中键点击
   if (type === "middle") {
-    if (tabNav.value.middleClickToOpenInNewWindow) return openRouteInNewWindow(tab.name, tab.path);
+    if (tabNav.value.middleClickToOpenInNewWindow) return openRouteInNewWindow(tab.path);
     if (tabNav.value.middleClickToOpen) return router.push(tab.path);
     if (tabNav.value.middleClickToClose) return closeTab(tab);
   }

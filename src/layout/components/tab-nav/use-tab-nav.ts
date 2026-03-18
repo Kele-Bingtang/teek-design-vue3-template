@@ -178,9 +178,9 @@ export const useTabNav = () => {
   /**
    * 在新窗口中打开路由
    */
-  const openRouteInNewWindow = (name: string, path: string) => {
+  const openRouteInNewWindow = (path: string) => {
     try {
-      const { href } = router.resolve({ name });
+      const { href } = router.resolve({ path });
       openWindow(href, { target: "_blank" });
     } catch {
       // 根据 name 找不到路由，则走浏览器地址跳转
