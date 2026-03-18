@@ -4,7 +4,7 @@ import { ref, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import Sortable from "sortablejs";
-import { getUrlParams, isFunction } from "@/common/utils";
+import { getUrlParams, isFunction, openInNewWindow, openWindow } from "@/common/utils";
 import { HOME_URL } from "@/common/config";
 import { serviceConfig } from "@/common/config";
 import { useCommon, useMittBus } from "@/composables";
@@ -174,6 +174,19 @@ export const useTabNav = () => {
     layoutStore.addTab(tab);
 
     if (route.name) route.meta.isKeepAlive && layoutStore.addKeepAliveName(route.name as string);
+  };
+
+  /**
+   * 在新窗口中打开路由
+   */
+  const openRouteInNewWindow = (name: string, path: string) => {
+    try {
+      const { href } = router.resolve({ name });
+      openWindow(href, { target: "_blank" });
+    } catch {
+      // 根据 name 找不到路由，则走浏览器地址跳转
+      openInNewWindow(path);
+    }
   };
 
   /**
@@ -352,6 +365,7 @@ export const useTabNav = () => {
     addTabByRoute,
     toggleFixed,
     getRouteFullPath,
+    openRouteInNewWindow,
     openRightMenu,
     initContextMenu,
     closeTab,

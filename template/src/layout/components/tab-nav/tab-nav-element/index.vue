@@ -4,7 +4,7 @@ import type { TabProps } from "@/pinia";
 import { onMounted, watch, useTemplateRef } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { ElTabs, ElTabPane } from "element-plus";
-import { addUnit, removeUnit, isString, openRouteInNewWindow } from "@/common/utils";
+import { addUnit, removeUnit, isString } from "@/common/utils";
 import { useNamespace, useCommon } from "@/composables";
 import { useSettingStore } from "@/pinia";
 import { useTabNav } from "../use-tab-nav";
@@ -35,6 +35,7 @@ const {
   initAffixTabs,
   addTabByRoute,
   closeTab,
+  openRouteInNewWindow,
   openRightMenu,
 } = useTabNav();
 
@@ -58,7 +59,7 @@ const tabClick = (tabItem: TabsPaneContext) => {
 
 // Tab 鼠标中键点击回调
 const tabMiddleClick = (tab: TabProps) => {
-  if (tabNav.value.middleClickToOpenInNewWindow) return openRouteInNewWindow(tab.path);
+  if (tabNav.value.middleClickToOpenInNewWindow) return openRouteInNewWindow(tab.name, tab.path);
   if (tabNav.value.middleClickToOpen) return router.push(tab.path);
   if (tabNav.value.middleClickToClose) tabRemove(tab.path);
 };

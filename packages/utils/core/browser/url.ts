@@ -32,7 +32,7 @@ export function openWindow(
 /**
  * 在新窗口中打开路由
  */
-export function openRouteInNewWindow(path: string) {
+export function openInNewWindow(path: string) {
   const { hash, origin } = location;
   const fullPath = path.startsWith("/") ? path : `/${path}`;
   const url = `${origin}${hash ? "/#" : ""}${fullPath}`;
