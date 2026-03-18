@@ -70,7 +70,7 @@ const dropdownMenuItem = [
   {
     label: t("_tabNav.openInNewTab"),
     icon: TopRight,
-    click: () => openRouteInNewWindow(activeTab.value.name, activeTab.value.path),
+    click: () => openRouteInNewWindow(activeTab.value.path),
   },
   {
     label: t("_tabNav.closeCurrent"),

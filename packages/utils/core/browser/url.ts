@@ -8,8 +8,8 @@ export function getUrlParams(): URLSearchParams {
 /**
  * 新窗口打开 URL
  *
- * @param url - 需要打开的网址。
- * @param options - 打开窗口的选项。
+ * @param url - 需要打开的网址
+ * @param options - 打开窗口的选项
  */
 export function openWindow(
   url: string,
