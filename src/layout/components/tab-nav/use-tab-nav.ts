@@ -4,7 +4,7 @@ import { ref, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import Sortable from "sortablejs";
-import { getUrlParams, isFunction, openWindow, openInNewWindow } from "@/common/utils";
+import { getUrlParams, isFunction, openWindow, openPathInNewWindow } from "@/common/utils";
 import { serviceConfig, HOME_URL } from "@/common/config";
 import { useCommon, useMittBus } from "@/composables";
 import beforeClose from "@/router/before-close";
@@ -184,7 +184,7 @@ export const useTabNav = () => {
       openWindow(href, { target: "_blank" });
     } catch {
       // 根据 name 找不到路由，则走浏览器地址跳转
-      openInNewWindow(path);
+      openPathInNewWindow(path);
     }
   };
 
