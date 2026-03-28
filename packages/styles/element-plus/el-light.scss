@@ -37,6 +37,11 @@ $component-size: (
   $common-component-size: $component-size
 );
 
+// form-item label 高度
+@forward "element-plus/theme-chalk/src/form-item.scss" with (
+  $form-item-line-height: $component-size
+);
+
 @use "element-plus/theme-chalk/src/index.scss" as *;
 
 :root {
