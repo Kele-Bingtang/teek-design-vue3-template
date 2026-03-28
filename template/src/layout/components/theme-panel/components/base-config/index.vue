@@ -38,6 +38,7 @@ const tabNavElementModeOptions = computed(() => [
   { value: TabNavElementModeEnum.Simple, label: t("_setting.tabNav.modeSelect.simple") },
   { value: TabNavElementModeEnum.Classic, label: t("_setting.tabNav.modeSelect.classic") },
   { value: TabNavElementModeEnum.Element, label: t("_setting.tabNav.modeSelect.element") },
+  { value: TabNavElementModeEnum.Storage, label: t("_setting.tabNav.modeSelect.storage") },
 ]);
 
 /**
@@ -399,6 +400,11 @@ const handleSelectLanguage = (lang: LanguageEnum) => {
     <div :class="ns.e('item')">
       <span>{{ $t("_setting.widget.lockScreen") }}</span>
       <el-switch v-model="widget.lockScreen" />
+    </div>
+
+    <div :class="ns.e('item')">
+      <span>{{ $t("_setting.widget.searchIcon") }}</span>
+      <el-switch v-model="widget.searchIcon" />
     </div>
 
     <h3>{{ $t("_setting.shortcutKey.label") }}</h3>
