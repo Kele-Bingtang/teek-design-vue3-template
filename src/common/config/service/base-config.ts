@@ -187,6 +187,7 @@ export const defaultServiceConfig: ServiceConfig = {
     language: true,
     theme: true,
     lockScreen: true,
+    searchIcon: false,
   },
   shortcutKey: {
     enable: true,
