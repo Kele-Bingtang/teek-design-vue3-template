@@ -6,6 +6,7 @@
  -->
 <script setup lang="ts">
 import type { CSSProperties } from "vue";
+import type { TooltipProps } from "./types";
 import { ref, computed, onMounted, onBeforeUnmount, useTemplateRef, useAttrs } from "vue";
 import { storeToRefs } from "pinia";
 import { ElTooltip } from "element-plus";
@@ -13,7 +14,6 @@ import { useResizeObserver } from "@vueuse/core";
 import { useSettingStore } from "@/pinia";
 import { serviceConfig } from "@/common/config";
 import { isFunction } from "@/common/utils";
-import type { TooltipProps } from "./types";
 
 defineOptions({ name: "Tooltip" });
 
