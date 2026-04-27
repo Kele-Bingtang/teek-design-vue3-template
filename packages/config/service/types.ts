@@ -13,6 +13,7 @@ import type {
   MenuShowModeEnum,
   HeaderShowModeEnum,
   MenuStyleEnum,
+  ThemeSurfaceEnum,
 } from "../service-enum";
 
 export interface ServiceConfig {
@@ -77,17 +78,40 @@ export interface LayoutConfig {
   };
   /** 主题面板触发按钮位置 */
   themePanelTriggerPosition: ThemePanelTriggerPositionEnum;
+  /** 全局提示配置 */
+  globalAlert?: {
+    /** 是否启用提示，默认为 true */
+    enabled?: boolean;
+    /** 开始时间，默认当天 */
+    startDate?: string;
+    /** 结束时间，默认为 startDate */
+    endDate?: string;
+    /** 提示文本 */
+    text?: string;
+    /** 类型，默认 primary */
+    type?: "primary" | "success" | "warning" | "danger" | "error" | "info" | "secondary";
+    /** 是否可以关闭，默认 false */
+    closable?: boolean;
+    /** 是否显示类型图标，默认 false */
+    showIcon?: boolean;
+  };
 }
 
 export interface ThemeConfig {
-  /** 主题色 */
-  primaryColor: Partial<Record<GlobalThemeEnum, string>>;
+  /** 品牌色 */
+  primaryColor: string;
+  /** 成功色 */
+  successColor: string;
+  /** 警告色 */
+  warningColor: string;
+  /** 危险色 */
+  dangerColor: string;
+  /** 错误色 */
+  errorColor: string;
+  /** 信息色 */
+  infoColor: string;
   /** 系统主题 */
   globalThemeMode: GlobalThemeEnum;
-  /** 指定当切换为暗色模式（html class 为 dark）或跟随系统时，使用的实际暗色模式 */
-  defaultDarkMode: GlobalThemeEnum;
-  /** 不同主题模式在 html 的 className */
-  globalThemeClassName: Partial<Record<GlobalThemeEnum, string>>;
   /** 圆角 */
   radius: number;
   /** 是否开启灰色主题 */
@@ -95,7 +119,11 @@ export interface ThemeConfig {
   /** 是否开启色弱主题 */
   greyMode: boolean;
   /** 预设颜色 */
-  presetsColor: Partial<Record<GlobalThemeEnum, string[]>>;
+  presetsColor: string[];
+  /** 主题外观 */
+  surface: ThemeSurfaceEnum;
+  /** 功能色是否强制跟随系统外观变换 */
+  functionalColorStrictly: boolean;
 }
 
 export interface headerConfig {

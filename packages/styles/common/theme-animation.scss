@@ -1,6 +1,4 @@
 // 定义基础变量
-$bg-animation-color-light: #000000;
-$bg-animation-color-dark: #ffffff;
 $bg-animation-duration: 0.5s;
 
 html {
@@ -10,7 +8,7 @@ html {
   }
 
   &::view-transition-new(*) {
-    animation: clip #{$bg-animation-duration ease-in};
+    animation: clip #{$bg-animation-duration} ease-in both;
   }
 
   &::view-transition-old(root) {
@@ -23,7 +21,7 @@ html {
 
   &.dark {
     &::view-transition-old(*) {
-      animation: clip #{$bg-animation-duration ease-in reverse};
+      animation: clip #{$bg-animation-duration} ease-in reverse both;
     }
 
     &::view-transition-new(*) {
