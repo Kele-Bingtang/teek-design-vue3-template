@@ -44,6 +44,7 @@ export default {
     ],
     "function-no-unknown": null, // 忽略未知函数的错误
     "scss/at-function-pattern": null, // scss 的 @function 命名允许大写
+    "no-invalid-position-declaration": null, // 关闭禁止无效的位置声明
   },
   ignoreFiles: [
     "**/*.js",

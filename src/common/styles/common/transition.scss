@@ -1,5 +1,4 @@
 /* 全局 transition */
-
 $duration: 0.3s; // 动画持续时间
 $distance: 12px; // 滑动动画的移动距离
 $easing: cubic-bezier(0.25, 0.1, 0.25, 1); // 默认缓动函数
@@ -39,25 +38,31 @@ $fade-easing: cubic-bezier(0.4, 0, 0.6, 1); // 淡入淡出专用的缓动函数
     $distance-y: $distance;
   }
 
-  &-enter-active,
-  &-leave-active {
+  @at-root &-enter-active {
     transition:
       opacity $duration $easing,
       transform $duration $easing;
     will-change: opacity, transform;
   }
 
-  &-enter-from {
+  @at-root &-leave-active {
+    transition:
+      opacity calc($duration * 0.8) $easing,
+      transform calc($duration * 0.8) $easing;
+    will-change: opacity, transform;
+  }
+
+  @at-root &-enter-from {
     opacity: 0;
     transform: translate3d($distance-x, $distance-y, 0);
   }
 
-  &-enter-to {
+  @at-root &-enter-to {
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
 
-  &-leave-to {
+  @at-root &-leave-to {
     opacity: 0;
     transform: translate3d(-$distance-x, -$distance-y, 0);
   }

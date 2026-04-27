@@ -13,6 +13,7 @@ import type {
   MenuShowModeEnum,
   HeaderShowModeEnum,
   MenuStyleEnum,
+  ThemeSurfaceEnum,
 } from "@/common/enums";
 
 export interface ServiceConfig {
@@ -97,14 +98,20 @@ export interface LayoutConfig {
 }
 
 export interface ThemeConfig {
-  /** 主题色 */
-  primaryColor: Partial<Record<GlobalThemeEnum, string>>;
+  /** 品牌色 */
+  primaryColor: string;
+  /** 成功色 */
+  successColor: string;
+  /** 警告色 */
+  warningColor: string;
+  /** 危险色 */
+  dangerColor: string;
+  /** 错误色 */
+  errorColor: string;
+  /** 信息色 */
+  infoColor: string;
   /** 系统主题 */
   globalThemeMode: GlobalThemeEnum;
-  /** 指定当切换为暗色模式（html class 为 dark）或跟随系统时，使用的实际暗色模式 */
-  defaultDarkMode: GlobalThemeEnum;
-  /** 不同主题模式在 html 的 className */
-  globalThemeClassName: Partial<Record<GlobalThemeEnum, string>>;
   /** 圆角 */
   radius: number;
   /** 是否开启灰色主题 */
@@ -112,7 +119,11 @@ export interface ThemeConfig {
   /** 是否开启色弱主题 */
   greyMode: boolean;
   /** 预设颜色 */
-  presetsColor: Partial<Record<GlobalThemeEnum, string[]>>;
+  presetsColor: string[];
+  /** 主题外观 */
+  surface: ThemeSurfaceEnum;
+  /** 功能色是否强制跟随系统外观变换 */
+  functionalColorStrictly: boolean;
 }
 
 export interface headerConfig {

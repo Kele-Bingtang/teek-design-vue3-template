@@ -1,51 +1,3 @@
-<!-- 提醒滚动 -->
-<template>
-  <div
-    v-if="text"
-    ref="containerInstance"
-    :class="[ns.b(), ns.is('vertical', !isHorizontal), ns.is(type)]"
-    :style="{ width, height, backgroundColor: bgColor }"
-  >
-    <div :class="ns.e('icon')" :style="{ backgroundColor: bgColor }">
-      <slot name="notice-icon">
-        <Icon icon="core-horn" class="icon-notice" />
-      </slot>
-    </div>
-
-    <div
-      :class="[ns.e('content'), { 'opacity-0': !isReady, 'opacity-100': isReady }]"
-      :style="contentStyle"
-      @click="handleContentClick"
-    >
-      <!-- 原始内容 -->
-      <span ref="textInstance" class="text-span">
-        <slot>
-          <slot name="text-icon">
-            <Icon v-if="showIcon" :icon="textIconMap[type]" :size="16" class="icon-text" />
-          </slot>
-          <span v-html="text"></span>
-        </slot>
-      </span>
-
-      <!-- 克隆内容用于无缝循环 -->
-      <span v-if="shouldClone" class="text-span" :style="cloneSpacing">
-        <slot>
-          <slot name="text-icon">
-            <Icon v-if="showIcon" :icon="textIconMap[type]" :size="16" class="icon-text" />
-          </slot>
-          <span v-html="text"></span>
-        </slot>
-      </span>
-    </div>
-
-    <div v-if="closable" :class="ns.e('close')" :style="{ backgroundColor: bgColor }" @click="handleClose">
-      <slot name="close-icon">
-        <Icon :icon="Close" class="icon-close" />
-      </slot>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import type { AlertScrollProps } from "./types";
 import { useElementSize, useRafFn, useElementHover, useDebounceFn, useTimeoutFn } from "@vueuse/core";
@@ -230,6 +182,53 @@ onMounted(startMeasure);
 
 onBeforeUnmount(pause);
 </script>
+
+<template>
+  <div
+    v-if="text"
+    ref="containerInstance"
+    :class="[ns.b(), ns.is('vertical', !isHorizontal), ns.is(type)]"
+    :style="{ width, height, backgroundColor: bgColor }"
+  >
+    <div :class="ns.e('icon')" :style="{ backgroundColor: bgColor }">
+      <slot name="notice-icon">
+        <Icon icon="core-horn" class="icon-notice" />
+      </slot>
+    </div>
+
+    <div
+      :class="[ns.e('content'), { 'opacity-0': !isReady, 'opacity-100': isReady }]"
+      :style="contentStyle"
+      @click="handleContentClick"
+    >
+      <!-- 原始内容 -->
+      <span ref="textInstance" class="text-span">
+        <slot>
+          <slot name="text-icon">
+            <Icon v-if="showIcon" :icon="textIconMap[type]" :size="16" class="icon-text" />
+          </slot>
+          <span v-html="text"></span>
+        </slot>
+      </span>
+
+      <!-- 克隆内容用于无缝循环 -->
+      <span v-if="shouldClone" class="text-span" :style="cloneSpacing">
+        <slot>
+          <slot name="text-icon">
+            <Icon v-if="showIcon" :icon="textIconMap[type]" :size="16" class="icon-text" />
+          </slot>
+          <span v-html="text"></span>
+        </slot>
+      </span>
+    </div>
+
+    <div v-if="closable" :class="ns.e('close')" :style="{ backgroundColor: bgColor }" @click="handleClose">
+      <slot name="close-icon">
+        <Icon :icon="Close" class="icon-close" />
+      </slot>
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 @use "./index";
