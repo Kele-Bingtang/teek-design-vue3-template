@@ -81,6 +81,10 @@
 
       .#{$el-namespace}-color-picker__trigger {
         padding: 1px;
+
+        .#{$el-namespace}-color-picker__color {
+          border-radius: 4px;
+        }
       }
     }
   }
