@@ -83,7 +83,7 @@
   @include e(text) {
     font-size: 26px;
     font-weight: 600;
-    color: cssVarEl(text-color-regular);
+    color: cssVarEl(gray-color-regular);
   }
 }
 
