@@ -13,16 +13,6 @@
 
   // 功能色
   --#{$teek-namespace}-color-primary: #4b5563;
-
-  // Chart 颜色
-  --#{$teek-namespace}-surface-chart-color-1: var(--#{$teek-namespace}-color-primary);
-  --#{$teek-namespace}-surface-chart-color-2: #f59e0b;
-  --#{$teek-namespace}-surface-chart-color-3: #10b981;
-  --#{$teek-namespace}-surface-chart-color-4: #8b5cf6;
-  --#{$teek-namespace}-surface-chart-color-5: #ef4444;
-  --#{$teek-namespace}-surface-chart-color-6: #3b82f6;
-  --#{$teek-namespace}-surface-chart-color-7: #06b6d4;
-  --#{$teek-namespace}-surface-chart-color-8: #6b7280;
 }
 
 :root[surface="slate-pro"].dark {
